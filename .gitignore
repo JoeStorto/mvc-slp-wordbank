@@ -1,0 +1,4 @@
+scripts/.cache-*
+scripts/.long.txt
+scripts/.kept.txt
+node_modules/

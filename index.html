@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SLP Word Bank</title>
+  <meta name="author" content="Maggie Van Camp">
+  <meta name="description" content="Generate American English word lists by syllable count, with syllables and phonemes segmented by pronunciation and General American IPA transcription.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍎</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Baloo+2:wght@600;700;800&family=Patrick+Hand&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <svg class="floor-plant floor-plant--left" viewBox="0 0 120 280" aria-hidden="true">
+      <path d="M58 212 C 40 150 30 90 34 20 C 46 80 58 140 66 212 Z" fill="#5e8c61" />
+      <path d="M40 212 C 20 170 10 120 14 70 C 26 110 40 160 52 212 Z" fill="#7fa77a" />
+      <path d="M70 212 C 78 150 88 100 96 44 C 98 100 90 160 82 212 Z" fill="#7fa77a" />
+      <path d="M62 212 C 62 160 66 110 74 60 C 80 110 78 160 72 212 Z" fill="#9cc19a" />
+      <path d="M48 212 C 44 170 44 130 50 96 C 56 130 58 170 58 212 Z" fill="#9cc19a" />
+      <path d="M80 212 C 92 180 102 150 112 118 C 108 150 98 186 90 212 Z" fill="#5e8c61" />
+      <path d="M34 20 C 38 70 46 120 56 180" fill="none" stroke="#c9d98f" stroke-width="1.5" opacity="0.6" />
+      <path d="M96 44 C 92 90 86 140 78 190" fill="none" stroke="#c9d98f" stroke-width="1.5" opacity="0.6" />
+      <path d="M18 212 H102 L94 280 H26 Z" fill="#e8692e" />
+      <rect x="12" y="204" width="96" height="16" rx="4" fill="#b94a16" />
+      <path d="M30 240 H90" stroke="#ffb27a" stroke-width="4" stroke-linecap="round" opacity="0.7" />
+    </svg>
+    <svg class="floor-plant floor-plant--right" viewBox="-8 0 158 280" aria-hidden="true">
+      <g fill="none" stroke="#5e8c61" stroke-width="3" stroke-linecap="round">
+        <path d="M70 214 C 68 170 60 130 40 96" />
+        <path d="M70 214 C 72 160 84 120 104 84" />
+        <path d="M70 214 C 70 150 70 90 72 40" />
+        <path d="M70 214 C 60 190 40 176 22 160" />
+        <path d="M70 214 C 84 192 104 180 122 170" />
+      </g>
+      <ellipse cx="38" cy="90" rx="22" ry="30" transform="rotate(-40 38 90)" fill="#7fa77a" />
+      <ellipse cx="106" cy="78" rx="22" ry="30" transform="rotate(40 106 78)" fill="#5e8c61" />
+      <ellipse cx="72" cy="36" rx="20" ry="30" fill="#9cc19a" />
+      <ellipse cx="20" cy="154" rx="18" ry="24" transform="rotate(-60 20 154)" fill="#5e8c61" />
+      <ellipse cx="122" cy="164" rx="18" ry="24" transform="rotate(60 122 164)" fill="#9cc19a" />
+      <ellipse cx="72" cy="120" rx="18" ry="26" transform="rotate(10 72 120)" fill="#7fa77a" />
+      <g fill="none" stroke="#e7efd9" stroke-width="1.5" opacity="0.55">
+        <path d="M50 108 L 26 72" />
+        <path d="M94 96 L 118 60" />
+        <path d="M72 64 L 72 8" />
+        <path d="M70 144 L 74 96" />
+      </g>
+      <path d="M32 214 H108 L100 280 H40 Z" fill="#7ec8e3" />
+      <rect x="26" y="206" width="88" height="16" rx="4" fill="#1f5f86" />
+      <path d="M46 244 H94" stroke="#dcf0f8" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+    </svg>
+    <div class="wrap hero__room">
+      <div class="board">
+        <p class="board__note">For Speech-Language Pathologists</p>
+        <h1>SLP Word Bank</h1>
+        <p class="board__ipa">/ˈwɝd ˌbæŋk/</p>
+        <p class="hero__lede">Build American English word lists by syllable count or target sound. Every word is split into syllables and sounds by how it is <em>said</em>, with a General American IPA transcription.</p>
+        <ul class="hero__facts">
+          <li><b>33,000+</b> words</li>
+          <li><b>1–10</b> syllables</li>
+          <li><b>IPA</b> American English</li>
+        </ul>
+        <div class="board__tray" aria-hidden="true">
+          <span class="chalk"></span>
+          <span class="chalk chalk--orange"></span>
+          <span class="chalk chalk--blue"></span>
+          <span class="eraser"></span>
+        </div>
+      </div>
+
+      <div class="decor" aria-hidden="true">
+        <svg class="window" viewBox="0 0 300 220">
+          <defs>
+            <path id="leaf" d="M0 0 C 4 -8 16 -10 22 -2 C 16 6 6 6 0 0 Z" />
+            <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7ec8e3" />
+              <stop offset="0.55" stop-color="#f7c59f" />
+              <stop offset="1" stop-color="#f08a4b" />
+            </linearGradient>
+            <clipPath id="glass">
+              <rect x="22" y="12" width="256" height="146" rx="4" />
+            </clipPath>
+          </defs>
+          <rect x="10" y="0" width="280" height="170" rx="10" fill="#b9784a" />
+          <g clip-path="url(#glass)">
+            <rect x="22" y="12" width="256" height="146" fill="url(#dusk)" />
+            <circle cx="186" cy="130" r="44" fill="#e8692e" opacity="0.2" />
+            <circle cx="186" cy="130" r="32" fill="#e8692e" />
+            <path d="M22 138 C 72 116 124 124 166 136 S 240 150 278 128 V158 H22Z" fill="#e6d3b0" />
+            <path d="M22 150 C 92 136 154 144 206 152 S 256 150 278 144 V158 H22Z" fill="#d9bf92" />
+            <path d="M52 44c4-5 8-5 11 0 3-5 7-5 11 0M96 32c3-4 6-4 9 0 3-4 6-4 9 0" fill="none" stroke="#1f3b57" stroke-width="2" stroke-linecap="round" />
+          </g>
+          <rect x="147" y="12" width="6" height="146" fill="#b9784a" />
+          <rect x="22" y="82" width="256" height="6" fill="#b9784a" />
+          <rect x="0" y="166" width="300" height="14" rx="4" fill="#9e6238" />
+          <g transform="translate(30 118)">
+            <g fill="none" stroke="#5e8c61" stroke-width="1.8" stroke-linecap="round">
+              <path d="M6 44 C 0 60 8 72 2 92" />
+              <path d="M26 44 C 34 62 26 76 32 98" />
+            </g>
+            <use href="#leaf" transform="translate(2 60) rotate(150) scale(0.8)" fill="#7fa77a" />
+            <use href="#leaf" transform="translate(4 76) rotate(30) scale(0.75)" fill="#5e8c61" />
+            <use href="#leaf" transform="translate(2 90) rotate(160) scale(0.7)" fill="#9cc19a" />
+            <use href="#leaf" transform="translate(31 64) rotate(20) scale(0.8)" fill="#5e8c61" />
+            <use href="#leaf" transform="translate(29 80) rotate(170) scale(0.75)" fill="#9cc19a" />
+            <use href="#leaf" transform="translate(32 96) rotate(40) scale(0.7)" fill="#7fa77a" />
+            <use href="#leaf" transform="translate(16 26) rotate(-110)" fill="#5e8c61" />
+            <use href="#leaf" transform="translate(16 26) rotate(-60)" fill="#7fa77a" />
+            <use href="#leaf" transform="translate(14 28) rotate(-160)" fill="#9cc19a" />
+            <use href="#leaf" transform="translate(18 28) rotate(-15)" fill="#9cc19a" />
+            <use href="#leaf" transform="translate(16 24) rotate(-85) scale(0.8)" fill="#9cc19a" />
+            <path d="M2 30 H30 L27 48 H5 Z" fill="#7ec8e3" />
+            <rect x="0" y="27" width="32" height="6" rx="2" fill="#5fb3d4" />
+          </g>
+          <g transform="translate(236 134)">
+            <path d="M16 6c-5-6-16-4-16 8 0 10 8 18 16 16 8 2 16-6 16-16 0-12-11-14-16-8z" fill="#e8692e" />
+            <path d="M16 6c0-4 1-7 4-9" stroke="#6b4423" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <path d="M19 1c5-3 10-1 11 2-5 2-9 1-11-2z" fill="#6aa84f" />
+            <ellipse cx="9" cy="13" rx="3" ry="5" fill="#fff" opacity="0.35" />
+          </g>
+        </svg>
+
+        <div class="shelf">
+          <div class="shelf__items">
+            <div class="books">
+              <span class="book book--navy book--tall"></span>
+              <span class="book book--orange"></span>
+              <span class="book book--sand book--tall"></span>
+              <span class="book book--sky"></span>
+              <span class="book book--rust book--short"></span>
+            </div>
+            <div class="blocks">
+              <span class="block block--sky">ə</span>
+              <span class="block block--sand block--top">θ</span>
+              <span class="block block--peach">ʃ</span>
+            </div>
+            <svg class="succulent" viewBox="0 0 60 64">
+              <g transform="translate(30 34)">
+                <ellipse rx="7" ry="18" fill="#5e8c61" transform="rotate(-60) translate(0 -12)" />
+                <ellipse rx="7" ry="18" fill="#5e8c61" transform="rotate(60) translate(0 -12)" />
+                <ellipse rx="7" ry="17" fill="#7fa77a" transform="rotate(-30) translate(0 -12)" />
+                <ellipse rx="7" ry="17" fill="#7fa77a" transform="rotate(30) translate(0 -12)" />
+                <ellipse rx="6" ry="16" fill="#9cc19a" transform="translate(0 -12)" />
+              </g>
+              <path d="M12 36 H48 L44 64 H16 Z" fill="#e8692e" />
+              <rect x="9" y="32" width="42" height="7" rx="2" fill="#b94a16" />
+            </svg>
+            <div class="books">
+              <span class="book book--sky book--tall"></span>
+              <span class="book book--sand"></span>
+              <span class="book book--navy book--short"></span>
+              <span class="book book--orange book--tall"></span>
+            </div>
+          </div>
+          <div class="shelf__plank"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <form class="panel controls" id="controls" novalidate>
+      <div class="controls__row">
+        <div class="field field--type">
+          <label for="word-type"><span class="step">1</span>Word type</label>
+          <select id="word-type" name="word-type" autocomplete="off">
+            <option value="real" selected>Real words</option>
+            <option value="nonsense">Nonsense words</option>
+          </select>
+        </div>
+
+        <div class="field field--count">
+          <label for="count"><span class="step">2</span>How many words? <span class="hint hint--inline">1 to 500</span></label>
+          <input id="count" name="count" type="number" inputmode="numeric" min="1" max="500" value="20" required>
+        </div>
+
+        <div class="field field--freq">
+          <label for="frequency"><span class="step">3</span>Word familiarity</label>
+          <select id="frequency" name="frequency" autocomplete="off">
+            <option value="10000">Everyday words (top 10,000)</option>
+            <option value="50000">Common words (top 50,000)</option>
+            <option value="0" selected>Full dictionary</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" id="per-count" role="switch">
+        <span class="switch__track" aria-hidden="true"></span>
+        <span>Get <span id="per-count-number">20</span> words for each syllable count</span>
+      </label>
+
+      <fieldset class="field syllables">
+        <legend><span class="step">4</span>Syllables <span class="hint hint--inline">choose one or more</span></legend>
+        <div class="syllables__chips" id="syllable-chips"></div>
+        <div class="syllables__actions">
+          <button type="button" class="link-btn" data-select="all">Select all</button>
+          <button type="button" class="link-btn" data-select="none">Clear</button>
+        </div>
+      </fieldset>
+
+      <details class="more">
+        <summary>Target a sound <span class="hint hint--inline">optional</span></summary>
+        <div class="controls__row">
+          <div class="field">
+            <label for="sound">Sound</label>
+            <select id="sound" name="sound">
+              <option value="">Any sound</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="position">Position in word</label>
+            <select id="position" name="position">
+              <option value="any">Anywhere</option>
+              <option value="initial">Initial</option>
+              <option value="medial">Medial</option>
+              <option value="final">Final</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <div class="controls__row controls__row--options">
+        <label class="check">
+          <input type="checkbox" id="balance" checked>
+          <span>Spread evenly across chosen syllable counts</span>
+        </label>
+        <label class="check">
+          <input type="checkbox" id="plain-r">
+          <span>Write the r sound as /r/ instead of /ɹ/</span>
+        </label>
+      </div>
+
+      <div class="controls__submit">
+        <button type="submit" class="btn btn--primary" id="generate" disabled>Loading words…</button>
+        <p class="pool" id="pool" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <section class="panel results" id="results" hidden aria-labelledby="results-title">
+      <div class="results__bar">
+        <h2 id="results-title">Your word bank</h2>
+        <div class="results__tools">
+          <div class="toggle" role="group" aria-label="View">
+            <button type="button" class="toggle__btn" data-view="cards" aria-pressed="true">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5"/></svg>
+              Cards
+            </button>
+            <button type="button" class="toggle__btn" data-view="list" aria-pressed="false">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="3" width="16" height="3" rx="1.5"/><rect x="2" y="8.5" width="16" height="3" rx="1.5"/><rect x="2" y="14" width="16" height="3" rx="1.5"/></svg>
+              List
+            </button>
+          </div>
+          <button type="button" class="btn btn--flash" id="flash-open">Flash cards</button>
+          <label class="inline-select">
+            <span>Organize</span>
+            <select id="sort">
+              <option value="syllables">By syllable count</option>
+              <option value="alpha">A to Z</option>
+              <option value="phonemes">By phoneme count</option>
+              <option value="random">Random order</option>
+            </select>
+          </label>
+          <button type="button" class="btn btn--ghost" id="copy">Copy</button>
+          <button type="button" class="btn btn--ghost" id="csv">Download CSV</button>
+          <button type="button" class="btn btn--ghost" id="quizlet-open">Export to Quizlet</button>
+          <button type="button" class="btn btn--ghost" id="print">Print</button>
+        </div>
+      </div>
+      <ul class="legend" aria-label="Color key">
+        <li><span class="syl syl--primary">bʌt</span> Primary stress</li>
+        <li><span class="syl syl--secondary">fla͡ɪ</span> Secondary stress</li>
+        <li><span class="syl">ɚ</span> Unstressed</li>
+        <li><span class="phon phon--vowel">a͡ɪ</span> Vowel</li>
+        <li><span class="phon">k</span> Consonant</li>
+      </ul>
+      <p class="notice" id="notice" hidden></p>
+      <div id="word-list"></div>
+    </section>
+
+    <section class="panel about">
+      <h2>How words are segmented</h2>
+      <dl class="about__grid">
+        <div>
+          <dt>Syllables</dt>
+          <dd>Split by pronunciation, not spelling. <span class="ipa">fire</span> is two syllables, <span class="ipa">/ˈfaɪ.ɚ/</span>. Consonants between vowels go to the following syllable as far as English allows a syllable to begin with them (the maximal onset principle), so <span class="ipa">monster</span> is <span class="ipa">/ˈmɑn.stɚ/</span>. A stressed short vowel keeps the next consonant, because English syllables cannot end in one: <span class="ipa">rabbit</span> is <span class="ipa">/ˈɹæb.ət/</span>.</dd>
+        </div>
+        <div>
+          <dt>Phonemes</dt>
+          <dd>Each sound is one phoneme. Affricates <span class="ipa">/tʃ/</span> and <span class="ipa">/dʒ/</span> and diphthongs <span class="ipa">/a͡ɪ/</span>, <span class="ipa">/a͡ʊ/</span>, <span class="ipa">/ɔ͡ɪ/</span>, <span class="ipa">/e͡ɪ/</span>, <span class="ipa">/o͡ʊ/</span> count as one sound each.</dd>
+        </div>
+        <div>
+          <dt>IPA</dt>
+          <dd>Broad (phonemic) General American transcription. <span class="ipa">/ˈ/</span> marks primary stress and <span class="ipa">/ˌ/</span> secondary stress, placed before the syllable. In the syllable boxes, stress is shown by color instead: orange for primary, blue for secondary. Diphthongs carry a tie bar, as in <span class="ipa">/a͡ɪ/</span>. Stressed and unstressed central vowels are distinguished: <span class="ipa">/ʌ/</span> and <span class="ipa">/ɝ/</span> when stressed, <span class="ipa">/ə/</span> and <span class="ipa">/ɚ/</span> when not.</dd>
+        </div>
+        <div>
+          <dt>Nonsense words</dt>
+          <dd>Made up from sound patterns English allows, with stress usually on the first syllable. Each one is checked against about 250,000 real spellings (including names) and every pronunciation in the CMU dictionary, so it is never a real word, whether written or said aloud. The spelling is only a suggested reading; the IPA is the target.</dd>
+        </div>
+        <div>
+          <dt>Sources</dt>
+          <dd>Pronunciations from the <a href="https://github.com/cmusphinx/cmudict">CMU Pronouncing Dictionary</a>. Word list checked against the public-domain <a href="https://www.gutenberg.org/ebooks/3204">Moby Hyphenator</a> to exclude names and abbreviations. Familiarity ranks from <a href="https://github.com/hermitdave/FrequencyWords">FrequencyWords</a> (CC BY-SA 4.0). Dictionary pronunciations can differ from regional speech, so check a word before using it in an assessment.</dd>
+        </div>
+      </dl>
+    </section>
+  </main>
+
+  <dialog class="flash" id="flash" aria-label="Flash cards">
+    <div class="flash__frame">
+      <div class="flash__top">
+        <p class="flash__counter" id="flash-counter" aria-live="polite"></p>
+        <button type="button" class="flash__close" id="flash-close" aria-label="Close flash cards">✕</button>
+      </div>
+      <div class="flash__stage" id="flash-stage"></div>
+      <div class="flash__controls">
+        <button type="button" class="flash__arrow" id="flash-prev" aria-label="Previous word">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" class="btn flash__random" id="flash-random">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3c4 0 6 10 10 10h3M4 17h3c1.6 0 2.8-1.6 3.9-3.6M13.1 9.6C14.2 8 15.4 7 17 7h3M18 4l3 3-3 3M18 14l3 3-3 3"/></svg>
+          Random
+        </button>
+        <button type="button" class="flash__arrow" id="flash-next" aria-label="Next word">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <p class="flash__hint">Use ← → to move, R for a random word, Esc to close</p>
+    </div>
+  </dialog>
+
+  <dialog class="qz" id="quizlet" aria-labelledby="quizlet-title">
+    <div class="qz__head">
+      <h2 id="quizlet-title">Export to Quizlet</h2>
+      <button type="button" class="flash__close qz__close" id="quizlet-close" aria-label="Close">✕</button>
+    </div>
+    <p class="qz__status" id="quizlet-status" aria-live="polite"></p>
+    <ol class="qz__steps">
+      <li>In Quizlet, create a new flashcard set.</li>
+      <li>Choose <strong>Import</strong> and paste into the box (Ctrl+V, or ⌘V on a Mac).</li>
+      <li>Leave <strong>Tab</strong> and <strong>New line</strong> selected, then choose <strong>Import</strong>.</li>
+    </ol>
+    <p class="qz__note">Each card has the word on the front and its IPA, syllables and phonemes on the back.</p>
+    <div class="qz__actions">
+      <a class="btn btn--primary qz__go" href="https://quizlet.com/create-set" target="_blank" rel="noopener">Open Quizlet</a>
+      <button type="button" class="btn btn--ghost" id="quizlet-download">Download as .txt</button>
+    </div>
+  </dialog>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <p class="footer__credit">Created by <strong>Maggie Van Camp</strong></p>
+      <p class="footer__note">Built for Speech-Language Pathologists. Pronunciations are General American and may not match every dialect.</p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
