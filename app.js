@@ -95,7 +95,7 @@
   }
 
   function parseEntry(line) {
-    const [word, arpabet, rank] = line.split("\t");
+    const [word, arpabet, rank, age] = line.split("\t");
     const phones = arpabet.split(" ").map((token) => {
       const code = token.replace(/[0-9]/g, "");
       const digit = token.match(/[0-9]/);
@@ -107,6 +107,7 @@
     return {
       word,
       rank: Number(rank) || 0,
+      age: (Number(age) || 0) / 10,
       phones,
       syllables,
       symbols: phones.map((p) => p.symbol),
@@ -319,12 +320,21 @@
 
   const pick = (list) => list[Math.floor(Math.random() * list.length)];
 
-  const N_ONSET_SINGLE = ["P", "B", "T", "D", "K", "G", "F", "V", "TH", "S", "Z", "SH", "HH", "CH", "JH", "M", "N", "L", "R", "W"];
-  const N_ONSET_CLUSTER = [...ONSETS].filter((o) => o.includes(" ") && !o.endsWith("Y"));
-  const N_CODA_SINGLE = ["P", "B", "T", "D", "K", "G", "F", "V", "TH", "S", "Z", "SH", "CH", "JH", "M", "N", "NG", "L"];
-  const N_CODA_CLUSTER = ["N D", "N T", "M P", "S T", "S K", "S P", "NG K", "L D", "L T", "L P", "L F", "L K", "F T", "K T", "P T", "N CH", "N JH", "K S", "P S", "T S"];
-  const N_CODA_MEDIAL = ["N", "M", "L", "S", "K", "T", "P"];
-  const N_STRESSED = ["IY", "IH", "EY", "EH", "AE", "AA", "OW", "UW", "AH", "ER", "AY", "AW", "OY"];
+  const N_ONSET_SINGLE = [
+    "B", "B", "B", "B", "P", "P", "P", "P", "D", "D", "D", "D", "T", "T", "T", "T",
+    "M", "M", "M", "M", "N", "N", "N", "N", "K", "K", "K", "G", "G", "G",
+    "W", "W", "W", "HH", "HH", "F", "F", "S", "S", "L", "L", "Y", "V", "Z",
+  ];
+  const N_ONSET_CLUSTER = ["B L", "P L", "K L", "S L", "S T", "S P", "S N", "S M"];
+  const N_CODA_SINGLE = [
+    "P", "P", "B", "B", "T", "T", "T", "D", "D", "D", "K", "K", "G",
+    "M", "M", "M", "N", "N", "N", "F", "S", "S", "L", "L", "NG",
+  ];
+  const N_CODA_MEDIAL = ["N", "N", "M", "M", "L", "T", "P"];
+  const N_STRESSED = [
+    "IH", "IH", "IH", "IH", "EH", "EH", "EH", "EH", "AE", "AE", "AE", "AE",
+    "AA", "AA", "AA", "AH", "AH", "AH", "IY", "IY", "OW", "OW", "EY", "EY", "UW",
+  ];
   const N_UNSTRESSED_FINAL = ["AH", "AH", "IY", "ER", "OW"];
   const N_UNSTRESSED_MEDIAL = ["AH", "AH", "AH", "IH", "ER"];
   const N_NO_CODA = new Set(["HH", "W", "Y", "R", "DH"]);
@@ -357,19 +367,19 @@
 
       const r = Math.random();
       let onset;
-      if (i === 0) onset = r < 0.15 ? [] : r < 0.8 ? [pick(N_ONSET_SINGLE)] : split(pick(N_ONSET_CLUSTER));
-      else onset = r < 0.9 ? [pick(N_ONSET_SINGLE)] : split(pick(N_ONSET_CLUSTER));
+      if (i === 0) onset = r < 0.08 ? [] : r < 0.93 ? [pick(N_ONSET_SINGLE)] : split(pick(N_ONSET_CLUSTER));
+      else onset = r < 0.97 ? [pick(N_ONSET_SINGLE)] : split(pick(N_ONSET_CLUSTER));
 
       const code = stress > 0 ? pick(N_STRESSED) : pick(final ? N_UNSTRESSED_FINAL : N_UNSTRESSED_MEDIAL);
       const lax = LAX.has(code);
       const c = Math.random();
       let coda = [];
       if (final) {
-        if (stress === 0 && code !== "AH") coda = c < 0.8 ? [] : [pick(N_CODA_MEDIAL)];
-        else if (DIPHTHONGS.has(code)) coda = c < 0.45 ? [] : [pick(N_CODA_SINGLE)];
-        else if (lax) coda = c < 0.72 ? [pick(N_CODA_SINGLE)] : split(pick(N_CODA_CLUSTER));
-        else coda = c < 0.35 ? [] : c < 0.82 ? [pick(N_CODA_SINGLE)] : split(pick(N_CODA_CLUSTER));
-      } else if (c < (stress > 0 && lax ? 0.4 : 0.2)) {
+        if (stress === 0 && code !== "AH") coda = c < 0.85 ? [] : [pick(N_CODA_MEDIAL)];
+        else if (DIPHTHONGS.has(code)) coda = c < 0.6 ? [] : [pick(N_CODA_SINGLE)];
+        else if (lax) coda = [pick(N_CODA_SINGLE)];
+        else coda = c < 0.45 ? [] : [pick(N_CODA_SINGLE)];
+      } else if (c < (stress > 0 && lax ? 0.15 : 0.02)) {
         coda = [pick(N_CODA_MEDIAL)];
       }
       syllables.push({ stress, code, onset, coda });
@@ -485,7 +495,7 @@
           OW: isMagic || final ? "o" : "oa",
           UW: "oo",
           UH: "oo",
-          AH: stressed ? "u" : "a",
+          AH: stressed || !final ? "u" : "a",
           ER: stressed ? "ur" : "er",
           AY: isMagic ? "i" : final ? "y" : next && next.code === "T" ? "igh" : "y",
           AW: final ? "ow" : "ou",
@@ -531,6 +541,13 @@
     return magic ? out + "e" : out;
   }
 
+  const TABOO = ["fʌk", "ʃɪt", "bɪtʃ", "kʌnt", "kɑk", "dɪk", "pɪs", "twɑt", "hoɹ", "tɪt", "ɹe͡ɪp", "næz", "slət"];
+
+  function isTaboo(word, sounds) {
+    const run = sounds.replace(/ /g, "");
+    return TABOO.some((bad) => run.includes(bad) || word.includes(bad));
+  }
+
   function makeNonsense(n, sound, position, seen) {
     for (let attempt = 0; attempt < 400; attempt++) {
       const syllables = buildSyllables(n);
@@ -550,6 +567,7 @@
       if (entry.syllables.length !== n) continue;
       if (!matchesSound(entry, sound, position)) continue;
       const sounds = soundKey(entry);
+      if (isTaboo(word, entry.symbols.join(""))) continue;
       if (realSpellings.has(word) || realSounds.has(sounds) || seen.has(word) || seen.has(sounds)) continue;
       seen.add(word);
       seen.add(sounds);
@@ -995,5 +1013,29 @@
   el("csv").addEventListener("click", downloadCsv);
   el("print").addEventListener("click", () => window.print());
 
-  load();
+  const ready = [];
+  window.SLP = {
+    display,
+    ipaText,
+    escapeHtml,
+    shuffle,
+    pick,
+    download,
+    copyText: writeClipboard,
+    syllablesHtml,
+    phonemesHtml,
+    plainSyllables,
+    plainPhonemes,
+    soundGroups: SOUND_GROUPS,
+    words: () => words,
+    onReady(callback) {
+      if (words.length) callback(words);
+      else ready.push(callback);
+    },
+  };
+
+  load().then(() => {
+    for (const callback of ready) callback(words);
+    ready.length = 0;
+  });
 })();

@@ -42,7 +42,8 @@ python -m http.server 8000
 node scripts/build-data.mjs
 ```
 
-Each line is `word`, `CMU pronunciation`, `frequency rank` (0 when the word is outside the top 50,000).
+Each line is `word`, `CMU pronunciation`, `frequency rank` (0 when the word is outside the
+top 50,000), and `age of acquisition` in years times ten (0 when the word is unrated).
 Syllable splits, phonemes and IPA are computed in the browser from the pronunciation.
 
 | Source | Used for | License |
@@ -51,6 +52,7 @@ Syllable splits, phonemes and IPA are computed in the browser from the pronuncia
 | [Moby Hyphenator](https://www.gutenberg.org/ebooks/3204) | Keeping real dictionary words, dropping names and abbreviations | Public domain |
 | [FrequencyWords](https://github.com/hermitdave/FrequencyWords) | "Everyday" and "Common" familiarity levels | CC BY-SA 4.0 |
 | [LDNOOBW list](https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words) | Excluding offensive words | CC BY 4.0 |
+| [Kuperman age-of-acquisition ratings](https://link.springer.com/article/10.3758/s13428-012-0210-4) | "Vocabulary level" filter on the pairs tab | Research data, cite the paper |
 
 The same script writes `data/real-check.txt`: every spelling from CMU, Moby (names
 included) and FrequencyWords, then every CMU pronunciation with stress removed. The page

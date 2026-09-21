@@ -162,6 +162,14 @@
   </header>
 
   <main class="wrap">
+    <div class="tabs" role="tablist" aria-label="Tools">
+      <button type="button" class="tab" role="tab" id="tab-words" aria-controls="panel-words" aria-selected="true">Word Bank</button>
+      <button type="button" class="tab" role="tab" id="tab-pairs" aria-controls="panel-pairs" aria-selected="false">Minimal &amp; Maximal Pairs</button>
+      <button type="button" class="tab" role="tab" id="tab-ret" aria-controls="panel-ret" aria-selected="false">Response Elaboration Training</button>
+      <button type="button" class="tab" role="tab" id="tab-spt" aria-controls="panel-spt" aria-selected="false">Sound Production Treatment</button>
+    </div>
+
+    <section class="tabpanel" id="panel-words" role="tabpanel" aria-labelledby="tab-words">
     <form class="panel controls" id="controls" novalidate>
       <div class="controls__row">
         <div class="field field--type">
@@ -306,6 +314,250 @@
         </div>
       </dl>
     </section>
+    </section>
+
+    <section class="tabpanel" id="panel-pairs" role="tabpanel" aria-labelledby="tab-pairs" hidden>
+      <form class="panel controls" id="pairs-controls" novalidate>
+        <div class="controls__row">
+          <div class="field field--type">
+            <label for="pairs-type"><span class="step">1</span>Contrast <span class="hint hint--inline">how far apart the sounds are</span></label>
+            <select id="pairs-type" autocomplete="off">
+              <option value="minimal" selected>Minimal pairs</option>
+              <option value="maximal">Maximal oppositions</option>
+            </select>
+          </div>
+
+          <div class="field field--count">
+            <label for="pairs-count"><span class="step">2</span>How many pairs? <span class="hint hint--inline">1 to 200</span></label>
+            <input id="pairs-count" type="number" inputmode="numeric" min="1" max="200" value="15" required>
+          </div>
+
+          <div class="field field--freq">
+            <label for="pairs-frequency"><span class="step">3</span>Vocabulary level</label>
+            <select id="pairs-frequency" autocomplete="off">
+              <option value="8">Preschool to 2nd grade</option>
+              <option value="11">Through 5th grade</option>
+              <option value="14" selected>Through 8th grade</option>
+              <option value="0">No limit (whole dictionary)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="controls__row">
+          <div class="field field--type">
+            <label for="pairs-position"><span class="step">4</span>Where they differ</label>
+            <select id="pairs-position" autocomplete="off">
+              <option value="any" selected>Anywhere</option>
+              <option value="initial">Initial sound</option>
+              <option value="medial">Middle sound</option>
+              <option value="final">Final sound</option>
+            </select>
+          </div>
+
+          <div class="field field--count">
+            <label for="pairs-syllables"><span class="step">5</span>Syllables</label>
+            <select id="pairs-syllables" autocomplete="off">
+              <option value="1" selected>1 syllable</option>
+              <option value="2">2 syllables</option>
+              <option value="3">3 syllables</option>
+              <option value="0">Any</option>
+            </select>
+          </div>
+
+          <div class="field field--freq">
+            <label for="pairs-sound">Target sound <span class="hint hint--inline">optional</span></label>
+            <select id="pairs-sound" autocomplete="off">
+              <option value="">Any sound</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="controls__submit">
+          <button type="submit" class="btn btn--primary" id="pairs-generate" disabled>Loading words…</button>
+          <p class="pool" id="pairs-pool" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <section class="panel results" id="pairs-results" hidden aria-labelledby="pairs-results-title">
+        <div class="results__bar">
+          <h2 id="pairs-results-title">Your pairs</h2>
+          <div class="results__tools">
+            <button type="button" class="btn btn--ghost" id="pairs-copy">Copy</button>
+            <button type="button" class="btn btn--ghost" id="pairs-csv">Download CSV</button>
+            <button type="button" class="btn btn--ghost" id="pairs-print">Print</button>
+          </div>
+        </div>
+        <p class="notice" id="pairs-notice" hidden></p>
+        <div id="pairs-list"></div>
+      </section>
+
+      <section class="panel about">
+        <h2>About these pairs</h2>
+        <dl class="about__grid">
+          <div>
+            <dt>Minimal pairs</dt>
+            <dd>Two real words whose pronunciations differ by exactly one sound, such as <span class="ipa">cat</span> and <span class="ipa">bat</span>. Both consonant and vowel contrasts are included. The contrast is matched by sound, not spelling.</dd>
+          </div>
+          <div>
+            <dt>Maximal oppositions</dt>
+            <dd>Minimal pairs whose two contrasting consonants are as different as English allows, differing on at least three of voicing, place, manner and sonorant class, such as /s/ against /m/ in <span class="ipa">sat</span> and <span class="ipa">mat</span>. Used in maximal opposition and empty set approaches.</dd>
+          </div>
+          <div>
+            <dt>Vocabulary level</dt>
+            <dd>Words are filtered by when children typically learn them, using age-of-acquisition ratings (Kuperman, Stadthagen-Gonzalez and Brysbaert, 2012), combined with a frequency cut so rare words like <span class="ipa">groat</span> cannot slip through. Ratings are averages from adult raters, so treat a level as a guide, not a guarantee, and skim a list before using it.</dd>
+          </div>
+          <div>
+            <dt>Position</dt>
+            <dd>Initial means the contrast is the first sound of both words, final the last, and middle anything between. Position refers to sounds, so <span class="ipa">knee</span> and <span class="ipa">bee</span> contrast initially even though one is spelled with two letters.</dd>
+          </div>
+        </dl>
+      </section>
+    </section>
+
+    <section class="tabpanel" id="panel-ret" role="tabpanel" aria-labelledby="tab-ret" hidden>
+      <form class="panel controls" id="ret-controls" novalidate>
+        <div class="controls__row">
+          <div class="field field--type">
+            <label for="ret-type"><span class="step">1</span>Prompt type</label>
+            <select id="ret-type" autocomplete="off">
+              <option value="both" selected>Both nouns and actions</option>
+              <option value="noun">Nouns (single objects)</option>
+              <option value="action">Actions (something happening)</option>
+            </select>
+          </div>
+
+          <div class="field field--count">
+            <label for="ret-count"><span class="step">2</span>How many prompts? <span class="hint hint--inline">1 to 40</span></label>
+            <input id="ret-count" type="number" inputmode="numeric" min="1" max="40" value="6" required>
+          </div>
+
+          <div class="field field--freq">
+            <label for="ret-theme"><span class="step">3</span>Theme</label>
+            <select id="ret-theme" autocomplete="off">
+              <option value="" selected>Any theme</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="controls__submit">
+          <button type="submit" class="btn btn--primary" id="ret-generate">Generate prompts</button>
+          <p class="pool" id="ret-pool" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <section class="panel results" id="ret-results" hidden aria-labelledby="ret-results-title">
+        <div class="results__bar">
+          <h2 id="ret-results-title">Your session sheet</h2>
+          <div class="results__tools">
+            <button type="button" class="btn btn--ghost" id="ret-copy">Copy</button>
+            <button type="button" class="btn btn--ghost" id="ret-print">Print</button>
+          </div>
+        </div>
+        <div id="ret-list"></div>
+      </section>
+
+      <section class="panel about">
+        <h2>About response elaboration training</h2>
+        <dl class="about__grid">
+          <div>
+            <dt>What it is</dt>
+            <dd>A treatment for aphasia (Kearns, 1985) that shapes and lengthens whatever the person says, rather than teaching set responses. Nothing the person says is wrong; every response is built on.</dd>
+          </div>
+          <div>
+            <dt>How to use these sheets</dt>
+            <dd>Show a picture of the prompt, then work through the five steps. The wh-cues are suggestions; follow the person's own words. Model sentences are written to be expanded, not read aloud as targets.</dd>
+          </div>
+          <div>
+            <dt>Pictures</dt>
+            <dd>The original protocol uses picture stimuli. This page gives the prompts and cue sequence; pair each one with a photo or picture card of your choosing.</dd>
+          </div>
+        </dl>
+      </section>
+    </section>
+    <section class="tabpanel" id="panel-spt" role="tabpanel" aria-labelledby="tab-spt" hidden>
+      <form class="panel controls" id="spt-controls" novalidate>
+        <div class="controls__row">
+          <div class="field field--type">
+            <label for="spt-sound"><span class="step">1</span>Target sound</label>
+            <select id="spt-sound" autocomplete="off">
+              <option value="">Any sound</option>
+            </select>
+          </div>
+
+          <div class="field field--type">
+            <label for="spt-position"><span class="step">2</span>Position in word</label>
+            <select id="spt-position" autocomplete="off">
+              <option value="any" selected>Anywhere</option>
+              <option value="initial">Initial</option>
+              <option value="medial">Medial</option>
+              <option value="final">Final</option>
+            </select>
+          </div>
+
+          <div class="field field--count">
+            <label for="spt-count"><span class="step">3</span>How many words? <span class="hint hint--inline">1 to 60</span></label>
+            <input id="spt-count" type="number" inputmode="numeric" min="1" max="60" value="10" required>
+          </div>
+        </div>
+
+        <div class="controls__row">
+          <div class="field field--count">
+            <label for="spt-syllables"><span class="step">4</span>Syllables</label>
+            <select id="spt-syllables" autocomplete="off">
+              <option value="1" selected>1 syllable</option>
+              <option value="2">2 syllables</option>
+              <option value="3">3 syllables</option>
+              <option value="0">Any</option>
+            </select>
+          </div>
+
+          <div class="field field--freq">
+            <label for="spt-frequency"><span class="step">5</span>Word familiarity</label>
+            <select id="spt-frequency" autocomplete="off">
+              <option value="10000" selected>Everyday words (top 10,000)</option>
+              <option value="50000">Common words (top 50,000)</option>
+              <option value="0">Full dictionary</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="controls__submit">
+          <button type="submit" class="btn btn--primary" id="spt-generate" disabled>Loading words…</button>
+          <p class="pool" id="spt-pool" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <section class="panel results" id="spt-results" hidden aria-labelledby="spt-results-title">
+        <div class="results__bar">
+          <h2 id="spt-results-title">Your practice sheet</h2>
+          <div class="results__tools">
+            <button type="button" class="btn btn--ghost" id="spt-copy">Copy</button>
+            <button type="button" class="btn btn--ghost" id="spt-csv">Download CSV</button>
+            <button type="button" class="btn btn--ghost" id="spt-print">Print</button>
+          </div>
+        </div>
+        <p class="notice" id="spt-notice" hidden></p>
+        <div id="spt-sheet"></div>
+      </section>
+
+      <section class="panel about">
+        <h2>About sound production treatment</h2>
+        <dl class="about__grid">
+          <div>
+            <dt>What it is</dt>
+            <dd>A treatment for acquired apraxia of speech that works through a fixed cueing hierarchy on a set of target words, moving to a stronger cue only after an error and back down as production improves.</dd>
+          </div>
+          <div>
+            <dt>Check the steps against your source</dt>
+            <dd>The five steps here summarise the hierarchy as it is commonly described (modelling and repetition, integral stimulation, articulatory placement cues, an orthographic cue, then repeated practice). Wording and criteria vary between published versions, so follow the protocol you are trained in.</dd>
+          </div>
+          <div>
+            <dt>Word choice</dt>
+            <dd>Pick a target sound and position, and the sheet draws real words containing that sound. Everyday words are the default, since treatment items are usually familiar and functional.</dd>
+          </div>
+        </dl>
+      </section>
+    </section>
   </main>
 
   <dialog class="flash" id="flash" aria-label="Flash cards">
@@ -357,5 +609,10 @@
   </footer>
 
   <script src="app.js" defer></script>
+  <script src="pairs.js" defer></script>
+  <script src="ret.js" defer></script>
+  <script src="spt.js" defer></script>
+  <script src="tabs.js" defer></script>
+  <script src="selects.js" defer></script>
 </body>
 </html>

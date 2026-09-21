@@ -21,6 +21,11 @@ const SOURCES = {
     file: ".cache-freq.txt",
     encoding: "utf8",
   },
+  aoa: {
+    url: "https://raw.githubusercontent.com/ytsvetko/curriculum_learning/master/data/aoa/AoA.txt",
+    file: ".cache-aoa.txt",
+    encoding: "utf8",
+  },
   blocked: {
     url: "https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/en",
     file: ".cache-blocked.txt",
@@ -40,12 +45,36 @@ async function load({ url, file, encoding }) {
   return readFile(path, encoding);
 }
 
-const [cmuText, mobyText, freqText, blockedText] = await Promise.all([
+const [cmuText, mobyText, freqText, blockedText, aoaText] = await Promise.all([
   load(SOURCES.cmu),
   load(SOURCES.moby),
   load(SOURCES.freq),
   load(SOURCES.blocked),
+  load(SOURCES.aoa),
 ]);
+
+const aoaByWord = new Map();
+for (const line of aoaText.split(/\r?\n/)) {
+  const [word, , , rating] = line.split("\t");
+  const age = Number(rating);
+  if (!word || !Number.isFinite(age) || age <= 0) continue;
+  if (!aoaByWord.has(word)) aoaByWord.set(word, age);
+}
+
+function ageOf(word) {
+  if (aoaByWord.has(word)) return aoaByWord.get(word);
+  const guesses = [];
+  if (word.endsWith("s")) guesses.push(word.slice(0, -1));
+  if (word.endsWith("es")) guesses.push(word.slice(0, -2));
+  if (word.endsWith("ies")) guesses.push(word.slice(0, -3) + "y");
+  if (word.endsWith("ed")) guesses.push(word.slice(0, -2), word.slice(0, -1));
+  if (word.endsWith("ing")) guesses.push(word.slice(0, -3), word.slice(0, -3) + "e");
+  if (/(.)\1(ed|ing)$/.test(word)) guesses.push(word.replace(/(.)\1(ed|ing)$/, "$1"));
+  for (const guess of guesses) {
+    if (aoaByWord.has(guess)) return aoaByWord.get(guess);
+  }
+  return 0;
+}
 
 const blocked = new Set(
   blockedText.split(/\r?\n/).map((l) => l.trim().toLowerCase()).filter(Boolean),
@@ -84,7 +113,7 @@ for (const line of cmuText.split(/\r?\n/)) {
   if (!dictionary.has(word) && syllables < 7) continue;
   if (seen.has(word)) continue;
   seen.add(word);
-  rows.push([word, phones, rank.get(word) || 0]);
+  rows.push([word, phones, rank.get(word) || 0, Math.round(ageOf(word) * 10) || 0]);
 }
 
 const supplement = await readFile(join(here, "long-words.tsv"), "utf8");
@@ -92,7 +121,7 @@ for (const line of supplement.split(/\r?\n/)) {
   const [word, phones] = line.split("\t");
   if (!word || seen.has(word)) continue;
   seen.add(word);
-  rows.push([word, phones, rank.get(word) || 0]);
+  rows.push([word, phones, rank.get(word) || 0, Math.round(ageOf(word) * 10) || 0]);
 }
 
 rows.sort((a, b) => (a[0] < b[0] ? -1 : 1));
