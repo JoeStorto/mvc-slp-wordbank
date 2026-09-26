@@ -126,9 +126,17 @@ assets, and omitting `main` is what tells Cloudflare there is no server code:
 {
   "name": "slp-word-bank",
   "compatibility_date": "2026-09-26",
+  "workers_dev": false,
+  "preview_urls": false,
   "assets": { "directory": "." }
 }
 ```
+
+`workers_dev` and `preview_urls` are set to `false` so `abcforslps.com` is the only public
+address. **These must live in the config, not the dashboard toggle.** `wrangler deploy`
+re-enables both on every deploy when they are absent, and says so in the build log: *"Because
+'workers_dev' is not in your Wrangler file, it will be enabled for this deployment by
+default."* Switching the toggle off in the dashboard lasts until the next push.
 
 `.assetsignore` sits beside it, in gitignore syntax, and lists everything that must **not**
 be published. `"directory": "."` means the assets directory is the repo root, so anything not
