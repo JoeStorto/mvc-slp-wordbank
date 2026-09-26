@@ -292,11 +292,39 @@ do.
 
 ### The tracking actually worth having
 
-Heatmaps will mostly confirm that people click the big generate button. The useful questions
-are which of the four generators gets used, which syllable counts get picked, whether anyone
-uses list view over cards, and how many visitors leave before the 5.4MB finishes loading.
-Both Clarity and Cloudflare take custom events in a line of JS each, and instrumenting all
-four generators is roughly a dozen lines in total.
+Heatmaps mostly confirm that people click the big generate button. The useful questions are
+which of the four generators gets used, which settings get picked, and how many visitors
+leave before the data files finish loading.
+
+`analytics.js` answers those. It is a standalone file loaded last, after the four app
+scripts, and it touches none of them: it attaches listeners from the outside, so removing the
+`<script>` tag removes the tracking completely. Every call is guarded by a
+`typeof window.clarity === "function"` check, so the site behaves identically if Clarity is
+blocked, fails to load, or is removed.
+
+**Clarity project ID:** `yog1frx743`, tag in the `<head>` of `index.html`.
+
+Events:
+
+| Event | Fires when |
+|---|---|
+| `generate_words` / `generate_pairs` / `generate_ret` / `generate_spt` | each tool is run |
+| `tab_words` / `tab_pairs` / `tab_ret` / `tab_spt` | a tab is opened |
+| `view_cards` / `view_list` / `view_flash_cards` | the result view changes |
+| `export_<tool>_<copy\|csv\|quizlet\|print>` | an export is used |
+| `data_ready` | the word list finishes loading |
+
+Dimensions set alongside them: `word_type`, `word_count`, `syllables`, `familiarity`,
+`target_sound`, `sound_position`, the `pairs_*`, `ret_*` and `spt_*` equivalents, and
+`load_time`.
+
+Counts are **bucketed** (`1-10`, `11-25`, `26-50`, `51-100`, `100+`) rather than sent raw, to
+keep Clarity's dimension cardinality usable. Empty fields are skipped rather than sent blank.
+Keep both habits when adding events.
+
+In Clarity these appear under **Dashboard → Custom events**, and recordings and heatmaps can
+be filtered by any dimension: only sessions that used the SPT tool, only sessions on a slow
+load, and so on.
 
 ---
 
