@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const out = join(here, "..", "data", "words.tsv");
+const out = join(here, "..", "data", "words.txt");
 
 const SOURCES = {
   cmu: {
@@ -156,7 +156,7 @@ for (const r of rows) {
   counts[n] = (counts[n] || 0) + 1;
 }
 process.stdout.write(
-  `${rows.length} words written to data/words.tsv\n` +
+  `${rows.length} words written to data/words.txt\n` +
     `by syllable count: ${JSON.stringify(counts)}\n` +
     `real-word check: ${realSpellings.size} spellings, ${realSounds.size} pronunciations\n`,
 );

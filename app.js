@@ -967,7 +967,7 @@
     buildChips();
     buildSoundOptions();
     try {
-      const res = await fetch("data/words.tsv");
+      const res = await fetch("data/words.txt");
       if (!res.ok) throw new Error(res.statusText);
       const text = await res.text();
       words = text.split("\n").filter(Boolean).map(parseEntry);

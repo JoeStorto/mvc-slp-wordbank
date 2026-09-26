@@ -158,8 +158,8 @@ on.
 5. **Deploy.** First build takes well under a minute since nothing is compiled.
 6. Open the `https://slp-word-bank.<subdomain>.workers.dev` URL it gives you and verify
    properly, not just that the page paints:
-   - Generate a word list. If words appear, `words.tsv` loaded.
-   - Open DevTools → Network, reload, and confirm `real-check.txt` and `words.tsv` both
+   - Generate a word list. If words appear, `words.txt` loaded.
+   - Open DevTools → Network, reload, and confirm `real-check.txt` and `words.txt` both
      return **200**, not 404.
    - In the same Network rows, check `content-encoding: br`. That is the Brotli compression
      that was the main reason to move off GitHub Pages: those two files are 5.4MB raw.
@@ -271,9 +271,9 @@ Run all of these once, after Part 6:
 
 - [ ] `https://abcforslps.com` loads over HTTPS with no certificate warning
 - [ ] `https://www.abcforslps.com` loads over HTTPS too
-- [ ] A word list generates, so `words.tsv` resolved on the real domain
+- [ ] A word list generates, so `words.txt` resolved on the real domain
 - [ ] Pairs, RET and SPT tabs each produce output
-- [ ] Network tab: `data/words.tsv` and `data/real-check.txt` are 200 with `content-encoding: br`
+- [ ] Network tab: `data/words.txt` and `data/real-check.txt` are 200 with `content-encoding: br`
 - [ ] The site works on an actual phone, not just a narrowed desktop window
 - [ ] Cloudflare Web Analytics shows at least one pageview
 - [ ] Clarity shows at least one session recording
