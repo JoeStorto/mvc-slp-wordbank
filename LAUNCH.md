@@ -1,7 +1,7 @@
 # Launch runbook: domain, hosting and analytics
 
-End state: the site lives at `https://abcforslps.com`, hosted free on Cloudflare Pages, rebuilt
-automatically on every push to `main`. Traffic numbers come from Cloudflare Web Analytics
+End state: the site lives at `https://abcforslps.com`, hosted free on Cloudflare Workers as
+static assets, rebuilt automatically on every push to `main`. Traffic numbers come from Cloudflare Web Analytics
 and heatmaps and session recordings from Microsoft Clarity. Total ongoing cost is the
 domain, about $10 to $11 a year. Everything else is free with no trial period.
 
@@ -130,9 +130,17 @@ assets, and omitting `main` is what tells Cloudflare there is no server code:
 }
 ```
 
-`.assetsignore` sits beside it, in gitignore syntax, and keeps `README.md`, `LAUNCH.md`,
-`scripts/` and the dotfiles from being published. Without it, `abcforslps.com/LAUNCH.md`
-would be a public page. Never add `data/` to it: those two files are the site's content.
+`.assetsignore` sits beside it, in gitignore syntax, and lists everything that must **not**
+be published. `"directory": "."` means the assets directory is the repo root, so anything not
+listed here is uploaded and served.
+
+**`.git/` must be the first line.** Omitting it publishes the entire repository: the first
+deploy of this site served `/.git/config` and `/.git/HEAD` with HTTP 200, and the build log
+gave it away by reporting 59 uploaded assets for a site with about a dozen files. This repo
+is public so nothing was disclosed, but on a private repo the same omission would publish
+every commit. Watch that asset count on future deploys.
+
+Never add `data/` to it: those two files are the site's content.
 
 Both must be committed and pushed **before** the deploy runs, or the build has nothing to act
 on.
@@ -161,8 +169,18 @@ on.
    - Generate a word list. If words appear, `words.txt` loaded.
    - Open DevTools → Network, reload, and confirm `real-check.txt` and `words.txt` both
      return **200**, not 404.
-   - In the same Network rows, check `content-encoding: br`. That is the Brotli compression
-     that was the main reason to move off GitHub Pages: those two files are 5.4MB raw.
+   - In the same Network rows, check `content-encoding: zstd` on both. Cloudflare compresses
+     by **content type**, and it does not compress `text/tab-separated-values`. That is why
+     the word list is `data/words.txt` and not `.tsv`: as `.tsv` it shipped at the full
+     1.19MB uncompressed, and as `.txt` it is served as `text/plain` and compresses to about
+     420KB. If a future data file arrives with an unusual extension, check this before
+     assuming it is compressed.
+
+     Measured, against GitHub Pages as the baseline: Cloudflare serves ~1.57MB of data files
+     versus GitHub's ~1.49MB gzip, so it is marginally **larger**, because Cloudflare uses a
+     fast zstd level rather than maximum compression. Payload size was not a reason to move.
+     The reasons are one account holding the domain, DNS and hosting, and the free analytics
+     in Part 6.
 
 From here, every push to `main` redeploys automatically in about 30 seconds. Pushing is
 still your action; nothing in this setup pushes on your behalf.
@@ -174,14 +192,24 @@ GitHub Pages fallback in Part 5 keeps working.
 
 ## Part 4: Point the domain at the site
 
-1. In the Pages project: **Custom domains → Set up a custom domain**.
-2. Enter the bare domain, `abcforslps.com`, and confirm.
+1. **Workers & Pages → slp-word-bank → Domains → Add Domain.**
+2. In the "Connect to abcforslps.com" dialog:
+   - **Subdomain: leave empty.** Empty means the root domain.
+   - **Enable for: Production.** Not "Production and Preview". Preview is the per-branch
+     environment Cloudflare builds for pull requests, and the real domain must never serve a
+     preview build.
 3. Because the domain is registered in this same Cloudflare account, Cloudflare creates the
    DNS record itself and issues the TLS certificate. No records to copy. Usually live in
-   under a minute, occasionally a few minutes for the certificate.
-4. Repeat for `www.abcforslps.com` as a second custom domain, so both spellings work and both
-   get certificates.
-5. Check that **SSL/TLS → Overview** for the domain is set to **Full (strict)**.
+   under a minute, occasionally a few more for the certificate.
+4. **Add Domain a second time**, this time with `www` in the Subdomain field, Production
+   again. Without it, anyone who types `www.` out of habit gets a certificate error rather
+   than the site.
+5. Both rows should then show Type `Production`, Zone `abcforslps.com`.
+
+Both spellings now serve the site, and the `workers.dev` URL still does too. Three public
+addresses for one site splits analytics and gives search engines duplicate content, so the
+Part 7 checklist turns the `workers.dev` route off once the domain is confirmed. Leave it on
+until then: it is the only way to test if something goes wrong with the domain.
 
 Optional, and only if you care which spelling is canonical: **Rules → Redirect Rules**, one
 rule forwarding `www.abcforslps.com` to `abcforslps.com` with a 301. For a site like this it makes
@@ -190,33 +218,40 @@ for search engines with less moving machinery.
 
 ---
 
-## Part 5: The old github.io link (optional)
+## Part 5: Redirect the old github.io link
 
-Once DNS points at Cloudflare, `https://joestorto.github.io/mvc-slp-wordbank/` is no longer
-the live site, but GitHub Pages keeps serving the repo there unless you intervene, so two
-identical copies exist at two addresses. Harmless, slightly untidy. Two ways to tidy it:
+Once the domain is live, `https://joestorto.github.io/mvc-slp-wordbank/` still serves a
+second, identical copy of the site. That splits analytics, gives search engines duplicate
+content, and leaves everyone who already has that link unaware the real address exists.
+Turning GitHub Pages off instead is worse: they get a 404 with no way to find the site.
 
-**The one-field attempt.** Repo **Settings → Pages → Custom domain**, enter `abcforslps.com`,
-save. GitHub then 301-redirects the github.io path to the domain. GitHub will warn that DNS
-does not point at it, which is true and expected, and **Enforce HTTPS** will be unavailable.
-I am not certain GitHub keeps this redirect alive indefinitely when DNS resolves elsewhere,
-so verify with `curl -I https://joestorto.github.io/mvc-slp-wordbank/` and look for a `301`
-with a `location:` header. If it holds, you are done.
+**The fix is `docs/`, already in the repo.** GitHub Pages can publish from a `/docs` folder
+on `main` instead of the repo root. `docs/index.html` and an identical `docs/404.html`
+redirect to `https://abcforslps.com/` via three mechanisms together: a `<link rel="canonical">`
+for search engines, a `<meta http-equiv="refresh">` for browsers without JavaScript, and
+`location.replace()` for everyone else, which redirects without leaving a history entry that
+the back button would bounce off.
 
-**The method that definitely holds.** Create a branch containing only a redirect page, and
-point GitHub Pages at that branch instead of `main`:
+1. Commit and push `docs/`.
+2. Repo **Settings → Pages → Source: Deploy from a branch → Branch `main`, Folder `/docs`**,
+   then Save.
+3. Within a minute, the old URL serves the redirect instead of the site.
 
-1. Branch off `main`, delete every file, add an `index.html` and a copy of it as `404.html`
-   containing a `<link rel="canonical">`, a `<meta http-equiv="refresh">` and a
-   `location.replace()` to `https://abcforslps.com/`.
-2. Repo **Settings → Pages → Source: Deploy from a branch**, select that branch, root.
+`docs/` is listed in `.assetsignore`, so Cloudflare never uploads it and `abcforslps.com/docs/`
+stays a 404. GitHub serves `404.html` for any unmatched path under the project path, so deep
+links redirect too.
 
-Cloudflare Pages stays on `main` and is unaffected. A meta refresh is not a true 301, so it
-is marginally weaker for search engines, but with the canonical tag present that is
-irrelevant at this scale.
+**Why not a `/docs` folder on a separate branch,** which is the other common approach: this
+way is one commit on `main` with no branch switching, and `main` root stops being published
+by GitHub the moment the source changes to `/docs`, which is what removes the duplicate.
 
-This is the same failure mode as the original broken link: the redirect is per-path. **Do not
-rename the repository** after launch, on either method.
+A meta refresh is not a true 301, so it is marginally weaker for search engines, but with the
+canonical tag present that is irrelevant at this scale.
+
+**Do not rename the repository** after this. The redirect is per-path, and renaming breaks the
+old URL exactly the way it broke when `slp-word-bank` became `mvc-slp-wordbank`. For the same
+reason the repo must stay **public**: GitHub Pages does not serve private repositories on the
+Free plan, so making it private would take the redirect down with it.
 
 ---
 
@@ -273,7 +308,7 @@ Run all of these once, after Part 6:
 - [ ] `https://www.abcforslps.com` loads over HTTPS too
 - [ ] A word list generates, so `words.txt` resolved on the real domain
 - [ ] Pairs, RET and SPT tabs each produce output
-- [ ] Network tab: `data/words.txt` and `data/real-check.txt` are 200 with `content-encoding: br`
+- [ ] Network tab: `data/words.txt` and `data/real-check.txt` are 200 with `content-encoding: zstd`
 - [ ] The site works on an actual phone, not just a narrowed desktop window
 - [ ] Cloudflare Web Analytics shows at least one pageview
 - [ ] Clarity shows at least one session recording
