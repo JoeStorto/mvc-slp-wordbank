@@ -15,6 +15,7 @@
   const positionSelect = el("spt-position");
   const countInput = el("spt-count");
   const syllableSelect = el("spt-syllables");
+  const structureSelect = el("spt-structure");
   const frequencySelect = el("spt-frequency");
   const generateBtn = el("spt-generate");
   const poolText = el("spt-pool");
@@ -73,6 +74,16 @@
     return indexOfSequence(s, parts) !== -1;
   }
 
+  function shapeOf(syllable) {
+    return syllable.phones.map((p) => (p.vowel ? "V" : "C")).join("");
+  }
+
+  function matchesStructure(entry) {
+    const shape = structureSelect.value;
+    if (!shape) return true;
+    return entry.syllables.some((syllable) => shapeOf(syllable) === shape);
+  }
+
   function pool() {
     const limit = Number(frequencySelect.value);
     const syllables = Number(syllableSelect.value);
@@ -80,6 +91,7 @@
       (entry) =>
         (!limit || (entry.rank > 0 && entry.rank <= limit)) &&
         (!syllables || entry.syllables.length === syllables) &&
+        matchesStructure(entry) &&
         matches(entry),
     );
   }
@@ -96,30 +108,40 @@
     );
   }
 
+  const CUE_COLUMNS = [
+    "Repetition: 5 times",
+    "Minimal pair",
+    "Show printed word",
+    "Watch me, listen to me, say it with me (3 attempts)",
+    "Articulatory placement cue",
+  ];
+
+  function targetLabel() {
+    const { display } = window.SLP;
+    const sound = soundSelect.value ? `/${display(soundSelect.value)}/` : "";
+    const shape = structureSelect.value;
+    return [sound, shape].filter(Boolean).join(" ") || "Target words";
+  }
+
   function rowsHtml() {
-    const { escapeHtml, ipaText, display } = window.SLP;
-    const sound = soundSelect.value;
+    const { escapeHtml, ipaText } = window.SLP;
+    const blanks = CUE_COLUMNS.map(() => '<td class="spt__mark"></td>').join("");
     const rows = current
       .map(
-        (entry, i) =>
+        (entry) =>
           "<tr>" +
-          `<td class="spt__num">${i + 1}</td>` +
           `<td class="words__word">${escapeHtml(entry.word)}</td>` +
-          `<td class="words__ipa">${escapeHtml(ipaText(entry))}</td>` +
-          '<td class="spt__trials"><span></span><span></span><span></span></td>' +
-          '<td class="spt__notes"></td>' +
+          `<td class="words__ipa spt__ipa">${escapeHtml(ipaText(entry))}</td>` +
+          blanks +
           "</tr>",
       )
       .join("");
-    const heading = sound ? `Target /${display(sound)}/` : "Target words";
+    const heads = CUE_COLUMNS.map((label) => `<th scope="col" class="spt__mark">${escapeHtml(label)}</th>`).join("");
     return (
-      `<h3 class="spt__title">${escapeHtml(heading)}</h3>` +
       '<table class="words spt__table"><thead><tr>' +
-      '<th scope="col" class="spt__num">#</th>' +
-      '<th scope="col">Word</th>' +
-      '<th scope="col">IPA</th>' +
-      '<th scope="col" class="spt__trials">Trials</th>' +
-      '<th scope="col">Notes</th>' +
+      `<th scope="col" class="spt__target">${escapeHtml(targetLabel())}</th>` +
+      '<th scope="col" class="spt__ipa">IPA</th>' +
+      heads +
       `</tr></thead><tbody>${rows}</tbody></table>`
     );
   }
@@ -134,7 +156,9 @@
     const amount = Math.max(1, Math.min(60, Math.round(Number(countInput.value)) || 1));
     countInput.value = amount;
     const available = pool();
-    current = window.SLP.shuffle(available).slice(0, amount);
+    current = window.SLP.shuffle(available)
+      .slice(0, amount)
+      .sort((a, b) => a.word.localeCompare(b.word));
 
     notice.hidden = available.length >= amount;
     if (!notice.hidden) {
@@ -156,12 +180,13 @@
       ipaText(entry),
       plainSyllables(entry),
       entry.syllables.length,
+      entry.syllables.map(shapeOf).join("-"),
       sound,
       positionSelect.value,
     ]);
   }
 
-  const HEADER = ["#", "Word", "IPA", "Syllables", "Syllable count", "Target sound", "Position"];
+  const HEADER = ["#", "Word", "IPA", "Syllables", "Syllable count", "Structure", "Target sound", "Position"];
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();

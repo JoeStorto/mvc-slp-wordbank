@@ -36,6 +36,8 @@
   const form = el("controls");
   const countInput = el("count");
   const frequencySelect = el("frequency");
+  const ageSelect = el("age");
+  const coreSelect = el("core");
   const soundSelect = el("sound");
   const positionSelect = el("position");
   const balanceInput = el("balance");
@@ -104,6 +106,7 @@
       return { code, vowel, stress, symbol: symbolFor(code, stress) };
     });
     const syllables = syllabify(phones);
+    if (syllables.length === 1) syllables[0].stress = 1;
     return {
       word,
       rank: Number(rank) || 0,
@@ -112,6 +115,10 @@
       syllables,
       symbols: phones.map((p) => p.symbol),
     };
+  }
+
+  function wellStressed(entry) {
+    return entry.syllables.filter((s) => s.stress === 1).length === 1;
   }
 
   const TIED = { "aɪ": "a͡ɪ", "aʊ": "a͡ʊ", "ɔɪ": "ɔ͡ɪ", "eɪ": "e͡ɪ", "oʊ": "o͡ʊ" };
@@ -155,12 +162,54 @@
     return s.includes(sound);
   }
 
+  const coreGroups = new Map();
+
+  function buildCoreOptions(text) {
+    let current = null;
+    for (const line of text.split("\n")) {
+      const row = line.trim();
+      if (!row) continue;
+      if (row.startsWith("##")) {
+        current = row.replace(/^#+\s*/, "");
+        coreGroups.set(current, new Set());
+      } else if (current) {
+        coreGroups.get(current).add(row.toLowerCase());
+      }
+    }
+    if (!coreGroups.size) return;
+    const all = document.createElement("option");
+    all.value = "*";
+    all.textContent = "All core words";
+    coreSelect.append(all);
+    for (const [label, words] of coreGroups) {
+      const option = document.createElement("option");
+      option.value = label;
+      option.textContent = `${label} (${words.size})`;
+      coreSelect.append(option);
+    }
+  }
+
+  function coreSet() {
+    const choice = coreSelect.value;
+    if (!choice) return null;
+    if (choice === "*") {
+      const all = new Set();
+      for (const words of coreGroups.values()) for (const w of words) all.add(w);
+      return all;
+    }
+    return coreGroups.get(choice) || null;
+  }
+
   function baseFilter() {
     const limit = Number(frequencySelect.value);
+    const maxAge = Number(ageSelect.value);
+    const core = coreSet();
     const sound = soundSelect.value;
     const position = positionSelect.value;
     return (entry) =>
       (!limit || (entry.rank > 0 && entry.rank <= limit)) &&
+      (!maxAge || (entry.age > 0 && entry.age <= maxAge)) &&
+      (!core || core.has(entry.word)) &&
       matchesSound(entry, sound, position);
   }
 
@@ -218,6 +267,8 @@
     balanceInput.disabled = perCount();
     balanceInput.closest(".check").classList.toggle("check--off", perCount());
     frequencySelect.disabled = isNonsense();
+    ageSelect.disabled = isNonsense();
+    coreSelect.disabled = isNonsense();
     if (isNonsense()) {
       for (const small of chipsBox.querySelectorAll("[data-count]")) small.hidden = true;
       const selected = readSelectedSyllables();
@@ -321,14 +372,14 @@
   const pick = (list) => list[Math.floor(Math.random() * list.length)];
 
   const N_ONSET_SINGLE = [
-    "B", "B", "B", "B", "P", "P", "P", "P", "D", "D", "D", "D", "T", "T", "T", "T",
-    "M", "M", "M", "M", "N", "N", "N", "N", "K", "K", "K", "G", "G", "G",
-    "W", "W", "W", "HH", "HH", "F", "F", "S", "S", "L", "L", "Y", "V", "Z",
+    "B", "B", "B", "B", "B", "P", "P", "P", "P", "P", "D", "D", "D", "D", "D",
+    "T", "T", "T", "T", "T", "M", "M", "M", "M", "M", "N", "N", "N", "N", "N",
+    "K", "K", "K", "K", "G", "G", "G", "W", "W", "W", "HH", "HH", "F", "F", "S", "L",
   ];
-  const N_ONSET_CLUSTER = ["B L", "P L", "K L", "S L", "S T", "S P", "S N", "S M"];
+  const N_ONSET_CLUSTER = ["B L", "P L", "K L", "S T", "S P"];
   const N_CODA_SINGLE = [
-    "P", "P", "B", "B", "T", "T", "T", "D", "D", "D", "K", "K", "G",
-    "M", "M", "M", "N", "N", "N", "F", "S", "S", "L", "L", "NG",
+    "P", "P", "P", "B", "B", "T", "T", "T", "T", "D", "D", "D", "D", "K", "K", "K",
+    "M", "M", "M", "M", "N", "N", "N", "N", "F", "S", "L",
   ];
   const N_CODA_MEDIAL = ["N", "N", "M", "M", "L", "T", "P"];
   const N_STRESSED = [
@@ -367,8 +418,8 @@
 
       const r = Math.random();
       let onset;
-      if (i === 0) onset = r < 0.08 ? [] : r < 0.93 ? [pick(N_ONSET_SINGLE)] : split(pick(N_ONSET_CLUSTER));
-      else onset = r < 0.97 ? [pick(N_ONSET_SINGLE)] : split(pick(N_ONSET_CLUSTER));
+      if (i === 0) onset = r < 0.08 ? [] : r < 0.98 ? [pick(N_ONSET_SINGLE)] : split(pick(N_ONSET_CLUSTER));
+      else onset = r < 0.995 ? [pick(N_ONSET_SINGLE)] : split(pick(N_ONSET_CLUSTER));
 
       const code = stress > 0 ? pick(N_STRESSED) : pick(final ? N_UNSTRESSED_FINAL : N_UNSTRESSED_MEDIAL);
       const lax = LAX.has(code);
@@ -376,10 +427,10 @@
       let coda = [];
       if (final) {
         if (stress === 0 && code !== "AH") coda = c < 0.85 ? [] : [pick(N_CODA_MEDIAL)];
-        else if (DIPHTHONGS.has(code)) coda = c < 0.6 ? [] : [pick(N_CODA_SINGLE)];
+        else if (DIPHTHONGS.has(code)) coda = c < 0.8 ? [] : [pick(N_CODA_SINGLE)];
         else if (lax) coda = [pick(N_CODA_SINGLE)];
-        else coda = c < 0.45 ? [] : [pick(N_CODA_SINGLE)];
-      } else if (c < (stress > 0 && lax ? 0.15 : 0.02)) {
+        else coda = c < 0.7 ? [] : [pick(N_CODA_SINGLE)];
+      } else if (c < (stress > 0 && lax ? 0.08 : 0.01)) {
         coda = [pick(N_CODA_MEDIAL)];
       }
       syllables.push({ stress, code, onset, coda });
@@ -967,14 +1018,23 @@
     buildChips();
     buildSoundOptions();
     try {
-      const res = await fetch("data/words.txt");
+      const [res, blockedRes, coreRes] = await Promise.all([
+        fetch("data/words.txt"),
+        fetch("data/blocked.txt"),
+        fetch("data/core-words.txt"),
+      ]);
+      if (coreRes.ok) buildCoreOptions(await coreRes.text());
       if (!res.ok) throw new Error(res.statusText);
       const text = await res.text();
-      words = text.split("\n").filter(Boolean).map(parseEntry);
-      for (const entry of words) {
+      const blocked = new Set(
+        blockedRes.ok ? (await blockedRes.text()).split("\n").map((w) => w.trim().toLowerCase()).filter(Boolean) : [],
+      );
+      const parsed = text.split("\n").filter(Boolean).map(parseEntry);
+      for (const entry of parsed) {
         realSpellings.add(entry.word);
         realSounds.add(soundKey(entry));
       }
+      words = parsed.filter((entry) => wellStressed(entry) && !blocked.has(entry.word));
       refreshPool();
     } catch {
       generateBtn.textContent = "Word list failed to load";
@@ -998,6 +1058,8 @@
   perCountInput.addEventListener("change", refreshPool);
   countInput.addEventListener("input", refreshPool);
   frequencySelect.addEventListener("change", refreshPool);
+  ageSelect.addEventListener("change", refreshPool);
+  coreSelect.addEventListener("change", refreshPool);
   wordTypeSelect.addEventListener("change", () => {
     if (isNonsense()) ensureRealCheck().catch(() => {});
     refreshPool();
@@ -1027,6 +1089,7 @@
     plainSyllables,
     plainPhonemes,
     soundGroups: SOUND_GROUPS,
+    coreGroups: () => coreGroups,
     words: () => words,
     onReady(callback) {
       if (words.length) callback(words);

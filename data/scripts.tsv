@@ -1,0 +1,509 @@
+phrase	setting	function	words	skill
+More please	Home	Requesting	2	Request
+Help me	Home	Requesting	2	Request
+Water please	Home	Requesting	2	Request
+Food please	Home	Requesting	2	Request
+Open please	Home	Requesting	2	Request
+Come here	Home	Requesting	2	Request
+My turn	Home	Requesting	2	Request
+Want snack	Home	Requesting	2	Request
+I want water	Home	Requesting	3	Request
+I want food	Home	Requesting	3	Request
+Help me please	Home	Requesting	3	Request
+Open the door	Home	Requesting	3	Request
+Get my shoes	Home	Requesting	3	Request
+I need help	Home	Requesting	3	Request
+I want more	Home	Requesting	3	Request
+Come with me	Home	Requesting	3	Request
+I want some more food	Home	Requesting	5	Request
+Can you help me please?	Home	Requesting	5	Request
+I want to watch TV	Home	Requesting	5	Request
+Can you open this for me?	Home	Requesting	6	Request
+I need some water please	Home	Requesting	5	Request
+Can I have a snack?	Home	Requesting	5	Request
+Can you help me find my shoes?	Home	Requesting	7	Request
+I want to watch my favorite show.	Home	Requesting	7	Request
+Can you get me something to drink?	Home	Requesting	7	Request
+I need help opening this container.	Home	Requesting	6	Request
+Can I have some more food please?	Home	Requesting	7	Request
+No	Home	Protesting	1	Protest
+Stop	Home	Protesting	1	Protest
+Not that	Home	Protesting	2	Protest
+All done	Home	Protesting	2	Protest
+Don't want	Home	Protesting	2	Protest
+Too much	Home	Protesting	2	Protest
+Too loud	Home	Protesting	2	Protest
+Not now	Home	Protesting	2	Protest
+I don't want	Home	Protesting	3	Protest
+Please stop that	Home	Protesting	3	Protest
+I am finished	Home	Protesting	3	Protest
+Not right now	Home	Protesting	3	Protest
+That's too loud	Home	Protesting	3	Protest
+I don't like it	Home	Protesting	4	Protest
+I don't want to do that	Home	Protesting	6	Protest
+Please stop making that noise	Home	Protesting	5	Protest
+I am finished with this activity	Home	Protesting	6	Protest
+I don't want that one	Home	Protesting	5	Protest
+That's too loud for me	Home	Protesting	5	Protest
+I don't want to do that right now.	Home	Protesting	8	Protest
+Can we please do something different?	Home	Protesting	6	Protest
+I don't like when you do that.	Home	Protesting	7	Protest
+I need some quiet time right now.	Home	Protesting	7	Protest
+Hi	School	Greeting	1	Social
+Hello	School	Greeting	1	Social
+Good morning	School	Greeting	2	Social
+Bye	School	Greeting	1	Social
+See you	School	Greeting	2	Social
+My friend	School	Greeting	2	Social
+Thank you	School	Greeting	2	Social
+You're welcome	School	Greeting	2	Social
+Good morning teacher	School	Greeting	3	Social
+Hi, how are you?	School	Greeting	4	Social
+See you tomorrow	School	Greeting	3	Social
+Have a good day	School	Greeting	4	Social
+Nice to see you	School	Greeting	4	Social
+Thank you for helping	School	Greeting	4	Social
+Good morning, how are you today?	School	Greeting	6	Social
+Can I sit with you?	School	Greeting	5	Social
+Do you want to play together?	School	Greeting	6	Social
+I'll see you after school.	School	Greeting	5	Social
+Thank you for helping me.	School	Greeting	5	Social
+Good morning, I'm happy to see you.	School	Greeting	7	Social
+Do you want to sit with me today?	School	Greeting	8	Social
+I'll see you again tomorrow at school.	School	Greeting	7	Social
+My turn	School	Classroom participation	2	Participation
+Your turn	School	Classroom participation	2	Participation
+I know	School	Classroom participation	2	Participation
+I don't know	School	Classroom participation	3	Participation
+Help please	School	Classroom participation	2	Participation
+Ready	School	Classroom participation	1	Participation
+Finished	School	Classroom participation	1	Participation
+Wait	School	Classroom participation	1	Participation
+I know the answer	School	Classroom participation	4	Participation
+I need help	School	Classroom participation	3	Participation
+Can you repeat?	School	Classroom participation	3	Participation
+Please say it again	School	Classroom participation	4	Participation
+I am finished	School	Classroom participation	3	Participation
+I need more time	School	Classroom participation	4	Participation
+I know the answer to that.	School	Classroom participation	6	Participation
+Can you please say that again?	School	Classroom participation	6	Participation
+I need more time to finish.	School	Classroom participation	6	Participation
+Can you help me with this?	School	Classroom participation	6	Participation
+I don't understand the question.	School	Classroom participation	5	Participation
+Can you explain the directions one more time?	School	Classroom participation	8	Participation
+I don't understand what I'm supposed to do.	School	Classroom participation	8	Participation
+Can you show me how to do this?	School	Classroom participation	8	Participation
+Help	School	Asking for help	1	Self-advocacy
+Help me	School	Asking for help	2	Self-advocacy
+Need help	School	Asking for help	2	Self-advocacy
+Teacher help	School	Asking for help	2	Self-advocacy
+Stuck	School	Asking for help	1	Self-advocacy
+Can't do	School	Asking for help	2	Self-advocacy
+I need help	School	Asking for help	3	Self-advocacy
+Can you help?	School	Asking for help	3	Self-advocacy
+Help me please	School	Asking for help	3	Self-advocacy
+I can't do it	School	Asking for help	4	Self-advocacy
+What do I do?	School	Asking for help	4	Self-advocacy
+Can you help me with this?	School	Asking for help	6	Self-advocacy
+I don't know what to do.	School	Asking for help	6	Self-advocacy
+Can you show me again?	School	Asking for help	5	Self-advocacy
+I need help with my work.	School	Asking for help	6	Self-advocacy
+Can you please show me how to do this?	School	Asking for help	9	Self-advocacy
+I don't understand what I'm supposed to do next.	School	Asking for help	9	Self-advocacy
+Can you help me finish this assignment?	School	Asking for help	7	Self-advocacy
+Play?	Playground	Initiating interaction	1	Initiation
+Come play	Playground	Initiating interaction	2	Initiation
+My turn	Playground	Initiating interaction	2	Initiation
+Your turn	Playground	Initiating interaction	2	Initiation
+Come here	Playground	Initiating interaction	2	Initiation
+Let's go	Playground	Initiating interaction	2	Initiation
+Watch me	Playground	Initiating interaction	2	Initiation
+Do you want to play?	Playground	Initiating interaction	5	Initiation
+Come play with me	Playground	Initiating interaction	4	Initiation
+Can I play too?	Playground	Initiating interaction	4	Initiation
+Let's play together	Playground	Initiating interaction	3	Initiation
+Watch me do this	Playground	Initiating interaction	4	Initiation
+Do you want to play with me?	Playground	Initiating interaction	7	Initiation
+Can I play with you?	Playground	Initiating interaction	5	Initiation
+Let's take turns on this.	Playground	Initiating interaction	5	Initiation
+Do you want to go next?	Playground	Initiating interaction	6	Initiation
+Can I play with you and your friends?	Playground	Initiating interaction	8	Initiation
+Do you want to take turns with me?	Playground	Initiating interaction	8	Initiation
+Let's play this game together.	Playground	Initiating interaction	5	Initiation
+My turn	Playground	Turn taking	2	Turn-taking
+Your turn	Playground	Turn taking	2	Turn-taking
+Wait	Playground	Turn taking	1	Turn-taking
+Go ahead	Playground	Turn taking	2	Turn-taking
+Again	Playground	Turn taking	1	Turn-taking
+It's my turn	Playground	Turn taking	3	Turn-taking
+It's your turn	Playground	Turn taking	3	Turn-taking
+Can I go?	Playground	Turn taking	3	Turn-taking
+You can go	Playground	Turn taking	3	Turn-taking
+Let's take turns	Playground	Turn taking	3	Turn-taking
+Can I have a turn next?	Playground	Turn taking	6	Turn-taking
+You can have a turn now.	Playground	Turn taking	6	Turn-taking
+Let's take turns playing the game.	Playground	Turn taking	6	Turn-taking
+Is it my turn yet?	Playground	Turn taking	5	Turn-taking
+Can I have a turn after you?	Playground	Turn taking	7	Turn-taking
+Let's take turns so everyone can play.	Playground	Turn taking	7	Turn-taking
+I'll wait until you're finished.	Playground	Turn taking	5	Turn-taking
+Menu please	Restaurant	Ordering	2	Request
+Water please	Restaurant	Ordering	2	Request
+I want	Restaurant	Ordering	2	Request
+Chicken please	Restaurant	Ordering	2	Request
+More please	Restaurant	Ordering	2	Request
+Check please	Restaurant	Ordering	2	Request
+I want chicken	Restaurant	Ordering	3	Request
+Can I order?	Restaurant	Ordering	3	Request
+No onions please	Restaurant	Ordering	3	Request
+I want this	Restaurant	Ordering	3	Request
+Can I have this?	Restaurant	Ordering	4	Request
+Can I have the chicken please?	Restaurant	Ordering	6	Request
+I would like a cheeseburger.	Restaurant	Ordering	5	Request
+Can I have water please?	Restaurant	Ordering	5	Request
+I don't want onions on mine.	Restaurant	Ordering	6	Request
+Can I have some more?	Restaurant	Ordering	5	Request
+Can I please have the chicken with fries?	Restaurant	Ordering	8	Request
+I would like a hamburger without onions please.	Restaurant	Ordering	8	Request
+Can I have some water before my food comes?	Restaurant	Ordering	9	Request
+Wrong order	Restaurant	Self-advocacy	2	Self-advocacy
+Too hot	Restaurant	Self-advocacy	2	Self-advocacy
+Too cold	Restaurant	Self-advocacy	2	Self-advocacy
+No straw	Restaurant	Self-advocacy	2	Self-advocacy
+Need help	Restaurant	Self-advocacy	2	Self-advocacy
+Excuse me	Restaurant	Self-advocacy	2	Self-advocacy
+My food is missing	Restaurant	Self-advocacy	4	Self-advocacy
+This is too hot	Restaurant	Self-advocacy	4	Self-advocacy
+I need a straw	Restaurant	Self-advocacy	4	Self-advocacy
+Can I get help?	Restaurant	Self-advocacy	4	Self-advocacy
+This isn't mine	Restaurant	Self-advocacy	3	Self-advocacy
+Excuse me, I ordered something different.	Restaurant	Self-advocacy	6	Self-advocacy
+Can I please get a straw?	Restaurant	Self-advocacy	6	Self-advocacy
+My food hasn't come yet.	Restaurant	Self-advocacy	5	Self-advocacy
+This food is too hot.	Restaurant	Self-advocacy	5	Self-advocacy
+Excuse me, I think this is the wrong order.	Restaurant	Self-advocacy	9	Self-advocacy
+Can I please get a new fork?	Restaurant	Self-advocacy	7	Self-advocacy
+My food hasn't come yet. Can you check?	Restaurant	Self-advocacy	8	Self-advocacy
+Where?	Grocery store	Finding something	1	Request
+Need help	Grocery store	Finding something	2	Request
+Find this	Grocery store	Finding something	2	Request
+Where milk?	Grocery store	Finding something	2	Request
+Over there	Grocery store	Finding something	2	Request
+This one	Grocery store	Finding something	2	Request
+Where is the milk?	Grocery store	Finding something	4	Request
+Can you help me?	Grocery store	Finding something	4	Request
+Where can I find this?	Grocery store	Finding something	5	Request
+I need some apples	Grocery store	Finding something	4	Request
+Can you help me find the milk?	Grocery store	Finding something	7	Request
+Where can I find the cereal?	Grocery store	Finding something	6	Request
+I need help finding this item.	Grocery store	Finding something	6	Request
+Is this the right aisle?	Grocery store	Finding something	5	Request
+Can you tell me where the cereal is?	Grocery store	Finding something	8	Request
+I'm looking for this item. Can you help me?	Grocery store	Finding something	9	Request
+Which aisle has the drinks?	Grocery store	Finding something	5	Request
+I hurt	Doctor	Reporting symptoms	2	Self-advocacy
+Head hurts	Doctor	Reporting symptoms	2	Self-advocacy
+Stomach hurts	Doctor	Reporting symptoms	2	Self-advocacy
+Feel sick	Doctor	Reporting symptoms	2	Self-advocacy
+Feel tired	Doctor	Reporting symptoms	2	Self-advocacy
+Help please	Doctor	Reporting symptoms	2	Self-advocacy
+My head hurts	Doctor	Reporting symptoms	3	Self-advocacy
+My stomach hurts	Doctor	Reporting symptoms	3	Self-advocacy
+I don't feel good	Doctor	Reporting symptoms	4	Self-advocacy
+I feel sick	Doctor	Reporting symptoms	3	Self-advocacy
+I feel tired	Doctor	Reporting symptoms	3	Self-advocacy
+It hurts here	Doctor	Reporting symptoms	3	Self-advocacy
+My stomach has been hurting today.	Doctor	Reporting symptoms	6	Self-advocacy
+My head hurts really bad.	Doctor	Reporting symptoms	5	Self-advocacy
+I don't feel good today.	Doctor	Reporting symptoms	5	Self-advocacy
+It hurts when I move.	Doctor	Reporting symptoms	5	Self-advocacy
+I feel sick after eating.	Doctor	Reporting symptoms	5	Self-advocacy
+My stomach has been hurting since this morning.	Doctor	Reporting symptoms	8	Self-advocacy
+It hurts when I move my arm.	Doctor	Reporting symptoms	7	Self-advocacy
+I don't feel good and I need help.	Doctor	Reporting symptoms	8	Self-advocacy
+I started feeling sick after I ate.	Doctor	Reporting symptoms	7	Self-advocacy
+Yes	Doctor	Answering questions	1	Participation
+No	Doctor	Answering questions	1	Participation
+Here	Doctor	Answering questions	1	Participation
+There	Doctor	Answering questions	1	Participation
+Today	Doctor	Answering questions	1	Participation
+Yesterday	Doctor	Answering questions	1	Participation
+Sometimes	Doctor	Answering questions	1	Participation
+Yes, it hurts	Doctor	Answering questions	3	Participation
+No, it doesn't	Doctor	Answering questions	3	Participation
+It hurts here	Doctor	Answering questions	3	Participation
+I don't know	Doctor	Answering questions	3	Participation
+Sometimes it hurts	Doctor	Answering questions	3	Participation
+It started hurting yesterday morning.	Doctor	Answering questions	5	Participation
+It hurts when I walk.	Doctor	Answering questions	5	Participation
+It happens sometimes at night.	Doctor	Answering questions	5	Participation
+I don't know what happened.	Doctor	Answering questions	5	Participation
+It started hurting after I woke up.	Doctor	Answering questions	7	Participation
+It hurts more when I move around.	Doctor	Answering questions	7	Participation
+I've been feeling this way since yesterday.	Doctor	Answering questions	7	Participation
+Excuse me	Community	Getting attention	2	Initiation
+Help please	Community	Getting attention	2	Initiation
+Hello	Community	Getting attention	1	Initiation
+Over here	Community	Getting attention	2	Initiation
+Wait please	Community	Getting attention	2	Initiation
+Excuse me please	Community	Getting attention	3	Initiation
+Can you help?	Community	Getting attention	3	Initiation
+I need help	Community	Getting attention	3	Initiation
+Can you hear me?	Community	Getting attention	4	Initiation
+Excuse me, can you help me?	Community	Getting attention	6	Initiation
+Can you please help me find this?	Community	Getting attention	7	Initiation
+I need some help please.	Community	Getting attention	5	Initiation
+Excuse me, can you please help me?	Community	Getting attention	7	Initiation
+I'm looking for someone who can help me.	Community	Getting attention	8	Initiation
+Can you tell me where I need to go?	Community	Getting attention	9	Initiation
+Bus please	Transportation	Getting around	2	Request
+Go home	Transportation	Getting around	2	Request
+Stop here	Transportation	Getting around	2	Request
+Where?	Transportation	Getting around	1	Request
+Home	Transportation	Getting around	1	Request
+School	Transportation	Getting around	1	Request
+Where is the bus?	Transportation	Getting around	4	Request
+I need to go home	Transportation	Getting around	5	Request
+Is this my stop?	Transportation	Getting around	4	Request
+Please stop here	Transportation	Getting around	3	Request
+Where are we going?	Transportation	Getting around	4	Request
+Is this the bus to school?	Transportation	Getting around	6	Request
+Can you tell me where we are?	Transportation	Getting around	7	Request
+Please let me know when we arrive.	Transportation	Getting around	7	Request
+I need to get off here.	Transportation	Getting around	6	Request
+Can you tell me when we get to school?	Transportation	Getting around	9	Request
+Please tell me when it is my stop.	Transportation	Getting around	8	Request
+I think I got on the wrong bus.	Transportation	Getting around	8	Request
+Need help	Workplace	Asking for help	2	Self-advocacy
+Help please	Workplace	Asking for help	2	Self-advocacy
+Question	Workplace	Asking for help	1	Self-advocacy
+Unsure	Workplace	Asking for help	1	Self-advocacy
+Wait please	Workplace	Asking for help	2	Self-advocacy
+I need help	Workplace	Asking for help	3	Self-advocacy
+Can you help?	Workplace	Asking for help	3	Self-advocacy
+I have a question	Workplace	Asking for help	4	Self-advocacy
+What should I do?	Workplace	Asking for help	4	Self-advocacy
+Can you show me?	Workplace	Asking for help	4	Self-advocacy
+Can you help me with this?	Workplace	Asking for help	6	Self-advocacy
+I have a question about this.	Workplace	Asking for help	6	Self-advocacy
+Can you show me how?	Workplace	Asking for help	5	Self-advocacy
+I'm not sure what to do.	Workplace	Asking for help	6	Self-advocacy
+Can you show me how to complete this task?	Workplace	Asking for help	9	Self-advocacy
+I have a question about what I should do next.	Workplace	Asking for help	10	Self-advocacy
+I'm not sure I understand these instructions.	Workplace	Asking for help	7	Self-advocacy
+Guess what	Home	Sharing information	2	Social
+Look	Home	Sharing information	1	Social
+I did	Home	Sharing information	2	Social
+At school	Home	Sharing information	2	Social
+My friend	Home	Sharing information	2	Social
+I had fun	Home	Sharing information	3	Social
+I played outside	Home	Sharing information	3	Social
+I saw this	Home	Sharing information	3	Social
+My friend came	Home	Sharing information	3	Social
+We did this	Home	Sharing information	3	Social
+I had a really good day.	Home	Sharing information	6	Social
+I played with my friends.	Home	Sharing information	5	Social
+We did something really fun.	Home	Sharing information	5	Social
+I learned something new today.	Home	Sharing information	5	Social
+I had a really fun day at school today.	Home	Sharing information	9	Social
+My friend and I played together during recess.	Home	Sharing information	8	Social
+I learned something new that I want to tell you.	Home	Sharing information	10	Social
+Hungry	Any	Basic needs	1	Self-advocacy
+Thirsty	Any	Basic needs	1	Self-advocacy
+Tired	Any	Basic needs	1	Self-advocacy
+Hurt	Any	Basic needs	1	Self-advocacy
+Bathroom	Any	Basic needs	1	Self-advocacy
+Break	Any	Basic needs	1	Self-advocacy
+Help	Any	Basic needs	1	Self-advocacy
+I need a break	Any	Basic needs	4	Self-advocacy
+I need water	Any	Basic needs	3	Self-advocacy
+I am hungry	Any	Basic needs	3	Self-advocacy
+I am tired	Any	Basic needs	3	Self-advocacy
+I need help	Any	Basic needs	3	Self-advocacy
+I need the bathroom	Any	Basic needs	4	Self-advocacy
+I need a break please.	Any	Basic needs	5	Self-advocacy
+I need something to drink.	Any	Basic needs	5	Self-advocacy
+I don't feel well.	Any	Basic needs	4	Self-advocacy
+I need some help with this.	Any	Basic needs	6	Self-advocacy
+I need to use the bathroom.	Any	Basic needs	6	Self-advocacy
+I need a break because I'm getting tired.	Any	Basic needs	8	Self-advocacy
+I don't feel well and need some help.	Any	Basic needs	8	Self-advocacy
+I need to use the bathroom before we leave.	Any	Basic needs	9	Self-advocacy
+Wait please	Any	Communication needs	2	Self-advocacy
+Slow down	Any	Communication needs	2	Self-advocacy
+Again please	Any	Communication needs	2	Self-advocacy
+Help me	Any	Communication needs	2	Self-advocacy
+Listen please	Any	Communication needs	2	Self-advocacy
+Not finished	Any	Communication needs	2	Self-advocacy
+Please wait	Any	Communication needs	2	Self-advocacy
+Say it again	Any	Communication needs	3	Self-advocacy
+Slow down please	Any	Communication needs	3	Self-advocacy
+Give me time	Any	Communication needs	3	Self-advocacy
+I need more time	Any	Communication needs	4	Self-advocacy
+Please listen	Any	Communication needs	2	Self-advocacy
+Please give me more time.	Any	Communication needs	5	Self-advocacy
+Can you say that again?	Any	Communication needs	5	Self-advocacy
+Please slow down when you talk.	Any	Communication needs	6	Self-advocacy
+I need more time to answer.	Any	Communication needs	6	Self-advocacy
+Please wait until I'm finished.	Any	Communication needs	5	Self-advocacy
+Please give me more time to answer.	Any	Communication needs	7	Self-advocacy
+Can you say that again a little slower?	Any	Communication needs	8	Self-advocacy
+I understand, but I need more time.	Any	Communication needs	7	Self-advocacy
+Please wait while I finish my message.	Any	Communication needs	7	Self-advocacy
+Stop please	Any	Conflict resolution	2	Self-advocacy
+My turn	Any	Conflict resolution	2	Self-advocacy
+Not okay	Any	Conflict resolution	2	Self-advocacy
+Don't	Any	Conflict resolution	1	Self-advocacy
+Move please	Any	Conflict resolution	2	Self-advocacy
+Help	Any	Conflict resolution	1	Self-advocacy
+Please stop that	Any	Conflict resolution	3	Self-advocacy
+That's not okay	Any	Conflict resolution	3	Self-advocacy
+I don't like that	Any	Conflict resolution	4	Self-advocacy
+Give it back	Any	Conflict resolution	3	Self-advocacy
+It's my turn	Any	Conflict resolution	3	Self-advocacy
+I don't like when you do that.	Any	Conflict resolution	7	Self-advocacy
+Please give my toy back.	Any	Conflict resolution	5	Self-advocacy
+That's not okay with me.	Any	Conflict resolution	5	Self-advocacy
+Can we take turns instead?	Any	Conflict resolution	5	Self-advocacy
+I don't like when you take my things.	Any	Conflict resolution	8	Self-advocacy
+Can we take turns instead of fighting?	Any	Conflict resolution	7	Self-advocacy
+Please stop. I don't want to play like this.	Any	Conflict resolution	9	Self-advocacy
+I need help solving this problem.	Any	Conflict resolution	6	Self-advocacy
+Hi	Phone	Starting a conversation	1	Initiation
+Hello	Phone	Starting a conversation	1	Initiation
+Can you hear?	Phone	Starting a conversation	3	Initiation
+Bye	Phone	Starting a conversation	1	Initiation
+See you	Phone	Starting a conversation	2	Initiation
+Hi, how are you?	Phone	Starting a conversation	4	Initiation
+Can you hear me?	Phone	Starting a conversation	4	Initiation
+I can hear you	Phone	Starting a conversation	4	Initiation
+What are you doing?	Phone	Starting a conversation	4	Initiation
+Hi, how are you doing today?	Phone	Starting a conversation	6	Initiation
+Can you hear me okay?	Phone	Starting a conversation	5	Initiation
+What did you do today?	Phone	Starting a conversation	5	Initiation
+I wanted to talk to you.	Phone	Starting a conversation	6	Initiation
+Hi, I wanted to call and see how you're doing.	Phone	Starting a conversation	10	Initiation
+Can you hear me? My connection isn't very good.	Phone	Starting a conversation	9	Initiation
+I'll talk to you again later.	Phone	Starting a conversation	6	Initiation
+Help	Emergency	Safety	1	Safety
+Stop	Emergency	Safety	1	Safety
+Fire	Emergency	Safety	1	Safety
+Hurt	Emergency	Safety	1	Safety
+Emergency	Emergency	Safety	1	Safety
+Danger	Emergency	Safety	1	Safety
+Police	Emergency	Safety	1	Safety
+Doctor	Emergency	Safety	1	Safety
+I need help	Emergency	Safety	3	Safety
+I'm hurt	Emergency	Safety	2	Safety
+Call for help	Emergency	Safety	3	Safety
+There's a fire	Emergency	Safety	3	Safety
+I feel unsafe	Emergency	Safety	3	Safety
+Help me please	Emergency	Safety	3	Safety
+I need help right now.	Emergency	Safety	5	Safety
+Someone is hurt over here.	Emergency	Safety	5	Safety
+I don't feel safe here.	Emergency	Safety	5	Safety
+Please call for help.	Emergency	Safety	4	Safety
+I need a doctor.	Emergency	Safety	4	Safety
+I need help because someone is hurt.	Emergency	Safety	7	Safety
+I don't feel safe and need to leave.	Emergency	Safety	8	Safety
+Please call someone who can help us.	Emergency	Safety	7	Safety
+I am hurt and need medical help.	Emergency	Safety	7	Safety
+Good morning	Home	Morning routine	2	Routine
+Wake up	Home	Morning routine	2	Routine
+Get dressed	Home	Morning routine	2	Routine
+Brush teeth	Home	Morning routine	2	Routine
+Eat breakfast	Home	Morning routine	2	Routine
+Ready	Home	Morning routine	1	Routine
+Good morning everyone	Home	Morning routine	3	Routine
+I'm getting dressed	Home	Morning routine	3	Routine
+I need my shoes	Home	Morning routine	4	Routine
+I'm ready now	Home	Morning routine	3	Routine
+I'm ready to go to school.	Home	Morning routine	6	Routine
+I need to brush my teeth.	Home	Morning routine	6	Routine
+Can you help me get dressed?	Home	Morning routine	6	Routine
+I'm almost ready to leave for school.	Home	Morning routine	7	Routine
+Can you help me find my shoes before we leave?	Home	Morning routine	10	Routine
+Tired	Home	Bedtime routine	1	Routine
+Bedtime	Home	Bedtime routine	1	Routine
+Good night	Home	Bedtime routine	2	Routine
+Water please	Home	Bedtime routine	2	Routine
+Story please	Home	Bedtime routine	2	Routine
+I'm ready for bed	Home	Bedtime routine	4	Routine
+Can I have water?	Home	Bedtime routine	4	Routine
+Read a story	Home	Bedtime routine	3	Routine
+Good night everyone	Home	Bedtime routine	3	Routine
+Can you read me a story?	Home	Bedtime routine	6	Routine
+I need some water please.	Home	Bedtime routine	5	Routine
+I'm ready to go to bed.	Home	Bedtime routine	6	Routine
+Can you read me one story before bedtime?	Home	Bedtime routine	8	Routine
+I'm ready for bed, but I need some water.	Home	Bedtime routine	9	Routine
+Hi	Any	Starting a conversation	1	Initiation
+What's up?	Any	Starting a conversation	2	Initiation
+How are you?	Any	Starting a conversation	3	Initiation
+What are you doing?	Any	Starting a conversation	4	Initiation
+Look at this	Any	Starting a conversation	3	Initiation
+How was your day?	Any	Starting a conversation	4	Initiation
+What did you do today?	Any	Starting a conversation	5	Initiation
+Do you like this?	Any	Starting a conversation	4	Initiation
+Can I tell you something?	Any	Starting a conversation	5	Initiation
+What did you do at school today?	Any	Starting a conversation	7	Initiation
+Do you want to hear something funny?	Any	Starting a conversation	7	Initiation
+I have something I want to tell you.	Any	Starting a conversation	8	Initiation
+Can I tell you about my day?	Any	Starting a conversation	7	Initiation
+Really?	Any	Maintaining a conversation	1	Social
+Me too	Any	Maintaining a conversation	2	Social
+That's cool	Any	Maintaining a conversation	2	Social
+What happened?	Any	Maintaining a conversation	2	Social
+Then what?	Any	Maintaining a conversation	2	Social
+Tell me more	Any	Maintaining a conversation	3	Social
+I understand	Any	Maintaining a conversation	2	Social
+I don't understand	Any	Maintaining a conversation	3	Social
+That's interesting	Any	Maintaining a conversation	2	Social
+I agree	Any	Maintaining a conversation	2	Social
+I don't agree	Any	Maintaining a conversation	3	Social
+I think so	Any	Maintaining a conversation	3	Social
+Maybe	Any	Maintaining a conversation	1	Social
+I don't know	Any	Maintaining a conversation	3	Social
+What happened next?	Any	Maintaining a conversation	3	Social
+What do you think?	Any	Maintaining a conversation	4	Social
+How did you feel?	Any	Maintaining a conversation	4	Social
+What happened after that?	Any	Maintaining a conversation	4	Social
+Again	Any	Repair	1	Communication repair
+Repeat	Any	Repair	1	Communication repair
+Wait	Any	Repair	1	Communication repair
+Listen	Any	Repair	1	Communication repair
+Help	Any	Repair	1	Communication repair
+What?	Any	Repair	1	Communication repair
+Huh?	Any	Repair	1	Communication repair
+Sorry	Any	Repair	1	Communication repair
+Say it again	Any	Repair	3	Communication repair
+I don't understand	Any	Repair	3	Communication repair
+What did you say?	Any	Repair	4	Communication repair
+Please slow down	Any	Repair	3	Communication repair
+Can you repeat?	Any	Repair	3	Communication repair
+I need help	Any	Repair	3	Communication repair
+Can you say that again?	Any	Repair	5	Communication repair
+I didn't understand what you said.	Any	Repair	6	Communication repair
+Can you say it more slowly?	Any	Repair	6	Communication repair
+Let me try again.	Any	Repair	4	Communication repair
+That's not what I meant.	Any	Repair	5	Communication repair
+I don't think you understood what I said.	Any	Repair	8	Communication repair
+Can I try saying that another way?	Any	Repair	7	Communication repair
+Please give me a minute to explain.	Any	Repair	7	Communication repair
+I meant something different than that.	Any	Repair	6	Communication repair
+Break please	Any	Requesting a break	2	Regulation
+Need break	Any	Requesting a break	2	Regulation
+All done	Any	Requesting a break	2	Regulation
+Too much	Any	Requesting a break	2	Regulation
+Tired	Any	Requesting a break	1	Regulation
+I need a break	Any	Requesting a break	4	Regulation
+Can I stop?	Any	Requesting a break	3	Regulation
+I need rest	Any	Requesting a break	3	Regulation
+I'm getting tired	Any	Requesting a break	3	Regulation
+Can I take a break please?	Any	Requesting a break	6	Regulation
+I need a short break.	Any	Requesting a break	5	Regulation
+I'm getting tired and need rest.	Any	Requesting a break	6	Regulation
+Can we stop for a minute?	Any	Requesting a break	6	Regulation
+I need a break before I continue.	Any	Requesting a break	7	Regulation
+Can I take a few minutes to rest?	Any	Requesting a break	8	Regulation
+I'm getting overwhelmed and need some quiet time.	Any	Requesting a break	8	Regulation

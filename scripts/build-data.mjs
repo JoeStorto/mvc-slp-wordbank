@@ -27,8 +27,7 @@ const SOURCES = {
     encoding: "utf8",
   },
   blocked: {
-    url: "https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/en",
-    file: ".cache-blocked.txt",
+    file: "blocked-source.txt",
     encoding: "utf8",
   },
 };
@@ -38,6 +37,7 @@ async function load({ url, file, encoding }) {
   try {
     await access(path);
   } catch {
+    if (!url) throw new Error(`Missing required file: scripts/${file}`);
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Download failed: ${url} (${res.status})`);
     await writeFile(path, Buffer.from(await res.arrayBuffer()));
@@ -54,11 +54,14 @@ const [cmuText, mobyText, freqText, blockedText, aoaText] = await Promise.all([
 ]);
 
 const aoaByWord = new Map();
+const posByWord = new Map();
 for (const line of aoaText.split(/\r?\n/)) {
-  const [word, , , rating] = line.split("\t");
+  const [raw, pos, , rating] = line.split("\t");
+  const word = (raw || "").trim().toLowerCase();
   const age = Number(rating);
   if (!word || !Number.isFinite(age) || age <= 0) continue;
   if (!aoaByWord.has(word)) aoaByWord.set(word, age);
+  if (!posByWord.has(word)) posByWord.set(word, pos);
 }
 
 function ageOf(word) {
@@ -100,32 +103,44 @@ const notEnglish = new Set([
   "laryngoscopicaly",
 ]);
 
+const stressFixes = new Map();
+for (const line of (await readFile(join(here, "stress-fixes.tsv"), "utf8")).split(/\r?\n/)) {
+  const [word, phones] = line.split("\t");
+  if (word && phones) stressFixes.set(word.trim(), phones.trim());
+}
+
 const seen = new Set();
 const rows = [];
 for (const line of cmuText.split(/\r?\n/)) {
   const m = line.match(/^([a-z]+) ([A-Z0-9 ]+?)(?:\s+#.*)?$/);
   if (!m) continue;
-  const [, word, phones] = m;
+  const [, word, rawPhones] = m;
+  const phones = stressFixes.get(word) || rawPhones;
   if (word.length < 2 && word !== "a" && word !== "i") continue;
   if (blocked.has(word) || notEnglish.has(word)) continue;
   const syllables = (phones.match(/[0-2]/g) || []).length;
   if (syllables < 1 || syllables > 10) continue;
-  if (!dictionary.has(word) && syllables < 7) continue;
+  if (!dictionary.has(word) && syllables < 7 && !aoaByWord.has(word)) continue;
   if (seen.has(word)) continue;
   seen.add(word);
   rows.push([word, phones, rank.get(word) || 0, Math.round(ageOf(word) * 10) || 0]);
 }
 
-const supplement = await readFile(join(here, "long-words.tsv"), "utf8");
-for (const line of supplement.split(/\r?\n/)) {
-  const [word, phones] = line.split("\t");
-  if (!word || seen.has(word)) continue;
-  seen.add(word);
-  rows.push([word, phones, rank.get(word) || 0, Math.round(ageOf(word) * 10) || 0]);
+for (const file of ["long-words.tsv", "extra-words.tsv"]) {
+  const supplement = await readFile(join(here, file), "utf8");
+  for (const line of supplement.split(/\r?\n/)) {
+    const [word, phones] = line.split("\t");
+    if (!word || !phones || seen.has(word) || blocked.has(word)) continue;
+    seen.add(word);
+    rows.push([word, phones, rank.get(word) || 0, Math.round(ageOf(word) * 10) || 0]);
+  }
 }
 
 rows.sort((a, b) => (a[0] < b[0] ? -1 : 1));
 await writeFile(out, rows.map((r) => r.join("\t")).join("\n") + "\n");
+
+const nouns = rows.map((r) => r[0]).filter((word) => posByWord.get(word) === "Noun");
+await writeFile(join(here, "..", "data", "nouns.txt"), nouns.join("\n") + "\n");
 
 const realSpellings = new Set([...blocked].filter((w) => /^[a-z]+$/.test(w)));
 const realSounds = new Set();
@@ -158,5 +173,6 @@ for (const r of rows) {
 process.stdout.write(
   `${rows.length} words written to data/words.txt\n` +
     `by syllable count: ${JSON.stringify(counts)}\n` +
-    `real-word check: ${realSpellings.size} spellings, ${realSounds.size} pronunciations\n`,
+    `real-word check: ${realSpellings.size} spellings, ${realSounds.size} pronunciations\n` +
+    `nouns: ${nouns.length} written to data/nouns.txt\n`,
 );

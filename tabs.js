@@ -3,6 +3,7 @@
 
   const tabs = [...document.querySelectorAll(".tab")];
   const panels = tabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls")));
+  const boards = [...document.querySelectorAll(".board__section")];
 
   function select(index) {
     tabs.forEach((tab, i) => {
@@ -10,6 +11,9 @@
       tab.tabIndex = i === index ? 0 : -1;
       panels[i].hidden = i !== index;
     });
+    for (const board of boards) {
+      board.classList.toggle("is-current", board.dataset.panel === panels[index].id);
+    }
   }
 
   tabs.forEach((tab, i) => {

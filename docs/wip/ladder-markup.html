@@ -1,0 +1,100 @@
+<!-- Board section: inside .board__copy in index.html, after the SODA board section -->
+          <div class="board__section" data-panel="panel-ladder">
+            <h2 class="board__title board__title--long">Conversation Ladder</h2>
+            <p class="board__ipa">/ˌkɑn.vɚˈse͡ɪ.ʃən ˈlæd.ɚ/</p>
+            <p class="board__lede">Practise a target sound at four levels: the word, a short phrase, a sentence, then conversation. Every target word comes with its own phrase, sentence and conversation starter.</p>
+          </div>
+
+<!-- Tab button: inside .tabs on the chalkboard, after the SODA tab -->
+          <button type="button" class="tab" role="tab" id="tab-ladder" aria-controls="panel-ladder" aria-selected="false">Conversation Ladder</button>
+
+<!-- Panel: inside <main>, after the SODA panel -->
+    <section class="tabpanel" id="panel-ladder" role="tabpanel" aria-labelledby="tab-ladder" hidden>
+      <form class="panel controls" id="ladder-controls" novalidate>
+        <div class="controls__row">
+          <div class="field field--type">
+            <label for="ladder-sound"><span class="step">1</span>Target sound</label>
+            <select id="ladder-sound" autocomplete="off">
+              <option value="">Any sound</option>
+            </select>
+          </div>
+
+          <div class="field field--type">
+            <label for="ladder-position"><span class="step">2</span>Position in word</label>
+            <select id="ladder-position" autocomplete="off">
+              <option value="any" selected>Anywhere</option>
+              <option value="initial">Initial</option>
+              <option value="medial">Medial</option>
+              <option value="final">Final</option>
+            </select>
+          </div>
+
+          <div class="field field--count">
+            <label for="ladder-count"><span class="step">3</span>How many words? <span class="hint hint--inline">1 to 30</span></label>
+            <input id="ladder-count" type="number" inputmode="numeric" min="1" max="30" value="10" required>
+          </div>
+        </div>
+
+        <div class="controls__row">
+          <div class="field field--count">
+            <label for="ladder-syllables"><span class="step">4</span>Syllables</label>
+            <select id="ladder-syllables" autocomplete="off">
+              <option value="1" selected>1 syllable</option>
+              <option value="2">2 syllables</option>
+              <option value="3">3 syllables</option>
+              <option value="0">Any</option>
+            </select>
+          </div>
+
+          <div class="field field--freq">
+            <label for="ladder-level"><span class="step">5</span>Vocabulary level</label>
+            <select id="ladder-level" autocomplete="off">
+              <option value="4">Usually known by age 4</option>
+              <option value="6" selected>Usually known by age 6</option>
+              <option value="8">Usually known by age 8</option>
+              <option value="10">Usually known by age 10</option>
+              <option value="0">No limit (whole dictionary)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="controls__submit">
+          <button type="submit" class="btn btn--primary" id="ladder-generate" disabled>Loading words…</button>
+          <p class="pool" id="ladder-pool" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <section class="panel results" id="ladder-results" hidden aria-labelledby="ladder-results-title">
+        <div class="results__bar">
+          <h2 id="ladder-results-title">Your practice ladder</h2>
+          <div class="results__tools">
+            <button type="button" class="btn btn--ghost" id="ladder-copy">Copy</button>
+            <button type="button" class="btn btn--ghost" id="ladder-csv">Download CSV</button>
+            <button type="button" class="btn btn--ghost" id="ladder-print">Print</button>
+          </div>
+        </div>
+        <p class="notice" id="ladder-notice" hidden></p>
+        <div id="ladder-sheet"></div>
+      </section>
+
+      <section class="panel about">
+        <h2>About the conversation ladder</h2>
+        <dl class="about__grid">
+          <div>
+            <dt>What it is</dt>
+            <dd>Each target word is practised at four levels of increasing complexity: on its own, in a short phrase, in a sentence, and in conversation. Move up a level once the sound is accurate at the one below.</dd>
+          </div>
+          <div>
+            <dt>Where the words come from</dt>
+            <dd>Target words are real nouns containing the chosen sound. Phrases and sentences are built from the sentence-building words in the core word list, so the frames stay short and familiar.</dd>
+          </div>
+          <div>
+            <dt>Conversation level</dt>
+            <dd>The conversation prompts are general starters. Follow the person's lead once they are talking, and listen for the target sound in their own words.</dd>
+          </div>
+        </dl>
+      </section>
+    </section>
+
+<!-- Script tag: after soda.js -->
+  <script src="ladder.js" defer></script>

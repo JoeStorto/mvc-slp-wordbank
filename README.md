@@ -46,6 +46,45 @@ Each line is `word`, `CMU pronunciation`, `frequency rank` (0 when the word is o
 top 50,000), and `age of acquisition` in years times ten (0 when the word is unrated).
 Syllable splits, phonemes and IPA are computed in the browser from the pronunciation.
 
+### Which CMU words are kept
+
+A word is kept if the Moby Hyphenator lists it, **or** it has an age-of-acquisition rating,
+**or** it has 7 or more syllables.
+
+The AoA condition is doing real work and must not be removed. Moby is a *hyphenation*
+dictionary, so it omits short function words and most inflections: it has `ear` but not
+`ears`, `scare` but not `scared`, and none of `i`, `me`, `go`, `no`, `in`, `on`, `up`, `am`,
+`is`, `be`. On its own the Moby gate dropped 75,355 CMU words to keep 41,840, taking every
+core communication word with it.
+
+Age of acquisition is what separates real words from proper nouns, because Kuperman rated
+common English words and not names. Every one of `i`, `me`, `go`, `ears`, `scared`, `yummy`
+is in the AoA data; not one of `john`, `mary`, `michael`, `smith`, `sarah` is, even though
+they are all frequent. Adding the AoA condition recovered **13,108 legitimate words**
+(`colleagues`, `sandwiches`, `winked`, `newborns`, `films`) with no proper nouns.
+
+**Match AoA keys in lower case.** The source file stores `I` capitalised, as English always
+writes it, while CMU words are lower case, so an exact lookup silently missed the single most
+common word in spoken English and gave it no age rating.
+
+### Supplement and correction files
+
+| File | Purpose |
+|---|---|
+| `scripts/long-words.tsv` | hand-transcribed 9 and 10 syllable words the dictionary lacks |
+| `scripts/extra-words.tsv` | words all sources miss, for example `hi` |
+| `scripts/stress-fixes.tsv` | corrected pronunciations where CMU marks two primary stresses |
+
+`stress-fixes.tsv` exists because the app requires exactly one primary stress per word and
+drops anything else. CMUdict marks many compounds with two, so `outside`, `ok`, `tv`,
+`downstairs`, `downtown`, `nearby`, `engineer` and `baseball` were all being discarded.
+
+There is no safe automatic rule for this: the true stress falls on the **second** element in
+`outside` (ˌaʊtˈsaɪd) and `alongside` (əˌlɔŋˈsaɪd), but on the **first** in `baseball`
+(ˈbeɪsbɔl) and `actuary` (ˈæktʃuˌɛri). Correct them by hand, one line per word. Around 400
+genuinely obscure words are still excluded this way, which is the intended outcome: better to
+omit a word than to teach a wrong stress pattern.
+
 | Source | Used for | License |
 |---|---|---|
 | [CMU Pronouncing Dictionary](https://github.com/cmusphinx/cmudict) | Pronunciations and stress | BSD-style |
@@ -62,6 +101,77 @@ spelling or sounds match an entry.
 `scripts/long-words.tsv` adds a few hand-transcribed 9 and 10 syllable words, because the
 dictionary has almost none. Words of 7 or more syllables from CMU are kept even when Moby
 lacks them, since they are real words (mostly medical and technical) rather than names.
+
+### Nouns
+
+The build also writes `data/nouns.txt`: every kept word whose dominant part of speech in the
+AoA source is Noun (about 21,000). The conversation ladder reads it so its phrase and sentence
+frames always get a noun (`find the sun`, never `find the happy`). The ladder drops plurals
+whose singular is in the dictionary at load, so `salts` and `swings` never become targets.
+
+### Core words
+
+`data/core-words.txt` holds Maggie Van Camp's functional communication vocabulary: 421 unique
+words across 27 categories. Format is a category header then one word per line:
+
+```
+## Feelings
+happy
+sad
+```
+
+The page reads it at load, builds the **Core words** dropdown from it, and filters the pool to
+the chosen category. Adding a category to the file adds it to the dropdown with no code
+change. All 421 words resolve against the pronunciation dictionary.
+
+The filter composes with the others, so "Feelings words a six-year-old knows, two syllables,
+containing /s/" is a single query.
+
+Her source list also contains multi-word phrases (`all done`, `don't want`, `I need help`).
+Those are deliberately **not** here, because the word bank needs a single word it can
+transcribe. They belong to the script training feature.
+
+### Blocked words
+
+The standard is **school appropriate**, not merely "not profanity". Blocked words fall into
+these groups: profanity and slurs, sexual and anatomical terms, alcohol, drugs, weapons,
+violence and gambling. Around 240 words are blocked and the pool sits near 46,000.
+
+`crack` is deliberately **not** blocked: it is a useful /kr/ cluster target for articulation
+work. Feeding and swallowing terms such as `suckle` and `suckling` are kept for the same
+reason.
+
+Whenever `data/words.txt` is rebuilt, **re-run the blocklist sweep**. A rebuild pulls in
+plural and inflected forms, and exact-match blocking does not catch them: blocking `shit`
+never blocked `shitting`, and blocking `fuck` never blocked `fucked` or `fuckers`.
+
+Removal is always by **exact spelling**, never by stem or substring, because the roots
+overlap heavily with ordinary vocabulary. Real examples caught during review: `ass` would
+take out *class*, *grass* and *pass*; `kill` would take *skill* and *skillet*; `gin` would
+take *begin*, *engine*, *margin* and *origin*; `ale` would take *tale*, *whale* and *male*;
+`rum` would take *drum* and *crumb*; `bullet` would take *bulletin* and *bulletproof*; and
+`heroin` would take *heroine*, a female hero. Add exact words, and check inflected forms by
+hand.
+
+Feeding and swallowing terms such as `suckle` and `suckling` are deliberately kept, as are
+`retardant` and `cracker`.
+
+Filtering happens in two places, and both are needed.
+
+`scripts/blocked-source.txt` is checked into the repo and read by the build. It started as
+the LDNOOBW list and is now the local source of truth, so builds are reproducible and the
+list is reviewable in a diff. It is no longer downloaded. Add a word here and rebuild to
+keep it out of `data/words.txt` in the first place.
+
+`data/blocked.txt` is read by the page at load and filters words that are already in
+`data/words.txt`. Add a word here and push, with no rebuild needed. This is the fast path,
+and the one to use when something slips through.
+
+The second list exists because the build matches **exact spellings only**. The source list
+carried `shit` but not `shitting`, so the inflected form reached users. Stem matching is not
+a safe fix: the list also contains `ass`, `butt`, `scat`, `cum` and `spic`, which would take
+out *class*, *butter*, *scatter*, *cumin* and *spicy*. Blocked words are deliberately kept
+in `data/real-check.txt` so nonsense-word generation still avoids producing them.
 
 ### Transcription rules
 

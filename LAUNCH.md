@@ -351,6 +351,62 @@ Run all of these once, after Part 6:
 - [ ] The old github.io URL behaves the way Part 5 intended
 - [ ] Domain auto-renew is on and WHOIS privacy is on
 
+## Where to look afterwards
+
+Four dashboards, all free, each answering something different.
+
+### Cloudflare Web Analytics: who visits and how fast it loads
+
+<https://dash.cloudflare.com/?to=/:account/web-analytics>, or sidebar **Analytics → Web
+analytics**, then set the site filter to `abcforslps.com`.
+
+Page views, visits, referrers, top pages, countries, browsers, and Core Web Vitals (LCP, INP,
+CLS). Cookieless, so no consent banner. Default range is Last 24 hours: widen it, because at
+this traffic level a day is mostly noise. `Exclude bots equals Yes` is on by default and
+should stay on.
+
+INP stays empty until real people interact; it cannot be populated by loading the page.
+
+### Microsoft Clarity: what people actually do
+
+<https://clarity.microsoft.com>, project **Slp site** (ID `yog1frx743`).
+
+| Tab | What it gives |
+|---|---|
+| **Dashboard** | sessions, scroll depth, rage clicks, dead clicks, quick-back clicks, and **Custom events** |
+| **Recordings** | individual sessions played back, filterable by any custom event or dimension |
+| **Heatmaps** | click, scroll and area maps per page |
+| **Settings** | cookie consent, content masking, IP blocking |
+
+The custom events are the part worth checking: which of the four tools gets used, which
+settings people choose, which exports they reach for. Filter Recordings by an event to watch
+only the sessions that used, say, Sound Production Treatment.
+
+Heatmaps need a handful of visits before they render anything meaningful, and Clarity
+processes in batches, so allow a few minutes after a visit.
+
+### Cloudflare zone analytics: traffic and security at the edge
+
+The domain itself under **Domains → abcforslps.com → Analytics**. Requests, bandwidth, cached
+versus uncached, and anything the WAF blocked. No setup, it comes with the domain being on
+Cloudflare. Useful for bandwidth and bot traffic, not for understanding users.
+
+### Worker metrics: whether the hosting is healthy
+
+**Compute → Workers & Pages → slp-word-bank → Metrics** and **Observability**. Requests,
+errors, CPU time. For a static site with no Worker script this should stay flat and boring;
+it is somewhere to look if the site misbehaves, not a source of insight.
+
+### Which to open for which question
+
+- *Is anyone using it?* Cloudflare Web Analytics.
+- *What are they doing, and which tools matter?* Clarity, Dashboard then Custom events.
+- *Why did someone give up?* Clarity Recordings, filtered to sessions without a
+  `generate_*` event.
+- *Is it slow for real people?* Web Analytics Core Web Vitals, plus the `data_ready`
+  `load_time` bands in Clarity.
+- *Is the site broken?* Worker metrics.
+
 ## Rollback
 
 Nothing here is destructive and `main` is untouched throughout. If Cloudflare Pages

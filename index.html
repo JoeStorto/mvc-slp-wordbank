@@ -62,14 +62,40 @@
     <div class="wrap hero__room">
       <div class="board">
         <p class="board__note">For Speech-Language Pathologists</p>
-        <h1>SLP Word Bank</h1>
-        <p class="board__ipa">/ˈwɝd ˌbæŋk/</p>
-        <p class="hero__lede">Build American English word lists by syllable count or target sound. Every word is split into syllables and sounds by how it is <em>said</em>, with a General American IPA transcription.</p>
-        <ul class="hero__facts">
-          <li><b>33,000+</b> words</li>
-          <li><b>1–10</b> syllables</li>
-          <li><b>IPA</b> American English</li>
-        </ul>
+        <div class="board__copy">
+          <div class="board__section is-current" data-panel="panel-words">
+            <h1 class="board__title">SLP Word Bank</h1>
+            <p class="board__ipa">/ˈwɝd ˌbæŋk/</p>
+            <p class="board__lede">Build American English word lists by syllable count or target sound. Every word is split into syllables and sounds by how it is <em>said</em>, with a General American IPA transcription.</p>
+          </div>
+          <div class="board__section" data-panel="panel-pairs">
+            <h2 class="board__title board__title--long">Minimal Pairs &amp; Maximal Oppositions</h2>
+            <p class="board__ipa">/ˈmɪn.ə.məl ˈpɛɹz ənd ˈmæk.sə.məl ˌɑ.pəˈzɪʃ.ənz/</p>
+            <p class="board__lede">Find pairs of real words that differ by one sound, like <em>cat</em> and <em>bat</em>. Choose minimal pairs or maximal oppositions, then filter by position, syllables and vocabulary level.</p>
+          </div>
+          <div class="board__section" data-panel="panel-ret">
+            <h2 class="board__title board__title--long">Response Elaboration Training</h2>
+            <p class="board__ipa">/ɹɪˈspɑns ɪˌlæb.ɚˈe͡ɪ.ʃən ˈtɹe͡ɪ.nɪŋ/</p>
+            <p class="board__lede">Build session sheets for response elaboration training, a treatment for aphasia. Each prompt comes with the steps and wh-cues that help lengthen whatever the person says.</p>
+          </div>
+          <div class="board__section" data-panel="panel-spt">
+            <h2 class="board__title board__title--long">Sound Production Treatment</h2>
+            <p class="board__ipa">/ˈsa͡ʊnd pɹəˈdʌk.ʃən ˈtɹit.mənt/</p>
+            <p class="board__lede">Make a printable practice sheet for apraxia of speech. Pick a target sound, position and syllable shape, and get real words laid out with the cueing hierarchy and a column for each cue.</p>
+          </div>
+          <div class="board__section" data-panel="panel-soda">
+            <h2 class="board__title">SODA</h2>
+            <p class="board__ipa">/ˈso͡ʊ.də/</p>
+            <p class="board__lede">Score speech sound errors as substitutions, omissions, distortions or additions. Generate words for six common error patterns, with the <em>likely error</em> written out.</p>
+          </div>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Tools">
+          <button type="button" class="tab" role="tab" id="tab-words" aria-controls="panel-words" aria-selected="true">Word Bank</button>
+          <button type="button" class="tab" role="tab" id="tab-pairs" aria-controls="panel-pairs" aria-selected="false">Minimal Pairs &amp; Maximal Oppositions</button>
+          <button type="button" class="tab" role="tab" id="tab-ret" aria-controls="panel-ret" aria-selected="false">Response Elaboration Training</button>
+          <button type="button" class="tab" role="tab" id="tab-spt" aria-controls="panel-spt" aria-selected="false">Sound Production Treatment</button>
+          <button type="button" class="tab" role="tab" id="tab-soda" aria-controls="panel-soda" aria-selected="false">SODA</button>
+        </div>
         <div class="board__tray" aria-hidden="true">
           <span class="chalk"></span>
           <span class="chalk chalk--orange"></span>
@@ -169,12 +195,6 @@
   </header>
 
   <main class="wrap">
-    <div class="tabs" role="tablist" aria-label="Tools">
-      <button type="button" class="tab" role="tab" id="tab-words" aria-controls="panel-words" aria-selected="true">Word Bank</button>
-      <button type="button" class="tab" role="tab" id="tab-pairs" aria-controls="panel-pairs" aria-selected="false">Minimal &amp; Maximal Pairs</button>
-      <button type="button" class="tab" role="tab" id="tab-ret" aria-controls="panel-ret" aria-selected="false">Response Elaboration Training</button>
-      <button type="button" class="tab" role="tab" id="tab-spt" aria-controls="panel-spt" aria-selected="false">Sound Production Treatment</button>
-    </div>
 
     <section class="tabpanel" id="panel-words" role="tabpanel" aria-labelledby="tab-words">
     <form class="panel controls" id="controls" novalidate>
@@ -200,6 +220,24 @@
             <option value="0" selected>Full dictionary</option>
           </select>
         </div>
+
+        <div class="field field--age">
+          <label for="age"><span class="step">4</span>Age of acquisition <span class="hint hint--inline">optional</span></label>
+          <select id="age" name="age" autocomplete="off">
+            <option value="0" selected>Any age</option>
+            <option value="4">Usually known by age 4</option>
+            <option value="6">Usually known by age 6</option>
+            <option value="8">Usually known by age 8</option>
+            <option value="10">Usually known by age 10</option>
+          </select>
+        </div>
+
+        <div class="field field--core">
+          <label for="core"><span class="step">5</span>Core words <span class="hint hint--inline">optional</span></label>
+          <select id="core" name="core" autocomplete="off">
+            <option value="" selected>Any word</option>
+          </select>
+        </div>
       </div>
 
       <label class="switch">
@@ -209,7 +247,7 @@
       </label>
 
       <fieldset class="field syllables">
-        <legend><span class="step">4</span>Syllables <span class="hint hint--inline">choose one or more</span></legend>
+        <legend><span class="step">6</span>Syllables <span class="hint hint--inline">choose one or more</span></legend>
         <div class="syllables__chips" id="syllable-chips"></div>
         <div class="syllables__actions">
           <button type="button" class="link-btn" data-select="all">Select all</button>
@@ -518,8 +556,28 @@
             </select>
           </div>
 
+          <div class="field field--type">
+            <label for="spt-structure"><span class="step">5</span>Syllable structure <span class="hint hint--inline">optional</span></label>
+            <select id="spt-structure" autocomplete="off">
+              <option value="" selected>Any structure</option>
+              <optgroup label="Simple shapes">
+                <option value="V">V</option>
+                <option value="CV">CV</option>
+                <option value="VC">VC</option>
+                <option value="CVC">CVC</option>
+              </optgroup>
+              <optgroup label="With clusters">
+                <option value="CCV">CCV</option>
+                <option value="CCVC">CCVC</option>
+                <option value="CVCC">CVCC</option>
+                <option value="VCC">VCC</option>
+                <option value="CCVCC">CCVCC</option>
+              </optgroup>
+            </select>
+          </div>
+
           <div class="field field--freq">
-            <label for="spt-frequency"><span class="step">5</span>Word familiarity</label>
+            <label for="spt-frequency"><span class="step">6</span>Word familiarity</label>
             <select id="spt-frequency" autocomplete="off">
               <option value="10000" selected>Everyday words (top 10,000)</option>
               <option value="50000">Common words (top 50,000)</option>
@@ -561,6 +619,106 @@
           <div>
             <dt>Word choice</dt>
             <dd>Pick a target sound and position, and the sheet draws real words containing that sound. Everyday words are the default, since treatment items are usually familiar and functional.</dd>
+          </div>
+        </dl>
+      </section>
+    </section>
+
+    <section class="tabpanel" id="panel-soda" role="tabpanel" aria-labelledby="tab-soda" hidden>
+      <form class="panel controls" id="soda-controls" novalidate>
+        <div class="controls__row">
+          <div class="field field--type">
+            <label for="soda-pattern"><span class="step">1</span>Error pattern</label>
+            <select id="soda-pattern" autocomplete="off">
+              <option value="all" selected>All six patterns (screener)</option>
+            </select>
+          </div>
+
+          <div class="field field--type">
+            <label for="soda-sound"><span class="step">2</span>Sound <span class="hint hint--inline">optional</span></label>
+            <select id="soda-sound" autocomplete="off" disabled>
+              <option value="">Any sound</option>
+            </select>
+          </div>
+
+          <div class="field field--type">
+            <label for="soda-position"><span class="step">3</span>Position in word</label>
+            <select id="soda-position" autocomplete="off" disabled>
+              <option value="any">Anywhere</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="controls__row">
+          <div class="field field--count">
+            <label for="soda-count"><span class="step">4</span>How many words? <span class="hint hint--inline">1 to 60</span></label>
+            <input id="soda-count" type="number" inputmode="numeric" min="1" max="60" value="12" required>
+          </div>
+
+          <div class="field field--count">
+            <label for="soda-syllables"><span class="step">5</span>Syllables</label>
+            <select id="soda-syllables" autocomplete="off">
+              <option value="1">1 syllable</option>
+              <option value="2">2 syllables</option>
+              <option value="3">3 syllables</option>
+              <option value="0" selected>Any</option>
+            </select>
+          </div>
+
+          <div class="field field--freq">
+            <label for="soda-level"><span class="step">6</span>Vocabulary level</label>
+            <select id="soda-level" autocomplete="off">
+              <option value="4">Usually known by age 4</option>
+              <option value="6" selected>Usually known by age 6</option>
+              <option value="8">Usually known by age 8</option>
+              <option value="10">Usually known by age 10</option>
+              <option value="0">No limit (whole dictionary)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="controls__row controls__row--options">
+          <label class="check">
+            <input type="checkbox" id="soda-chart-print">
+            <span>Print the reference chart with the scoring sheet</span>
+          </label>
+        </div>
+
+        <div class="controls__submit">
+          <button type="submit" class="btn btn--primary" id="soda-generate" disabled>Loading words…</button>
+          <p class="pool" id="soda-pool" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <section class="panel results" id="soda-results" hidden aria-labelledby="soda-results-title">
+        <div class="results__bar">
+          <h2 id="soda-results-title">Your scoring sheet</h2>
+          <div class="results__tools">
+            <button type="button" class="btn btn--ghost" id="soda-copy">Copy</button>
+            <button type="button" class="btn btn--ghost" id="soda-csv">Download CSV</button>
+            <button type="button" class="btn btn--ghost" id="soda-print">Print</button>
+          </div>
+        </div>
+        <p class="notice" id="soda-notice" hidden></p>
+        <div id="soda-sheet"></div>
+      </section>
+
+      <section class="panel soda-chart" id="soda-chart" aria-labelledby="soda-chart-title"></section>
+
+      <section class="panel about">
+        <h2>About SODA</h2>
+        <dl class="about__grid">
+          <div>
+            <dt>What it is</dt>
+            <dd>A way of classifying speech sound errors into four types: substitution, omission, distortion and addition. The six patterns here are common phonological processes, each a kind of substitution or omission.</dd>
+          </div>
+          <div>
+            <dt>How to score</dt>
+            <dd>Present each word, write what you heard, then mark the error type. Totals at the foot of the sheet show which types dominate.</dd>
+          </div>
+          <div>
+            <dt>Likely error</dt>
+            <dd>A prediction of how the word sounds if the pattern is present, with the changed sounds highlighted. Cluster reduction keeps the least sonorous consonant, the most common outcome, but children vary. It is a guide to listen for, not a score.</dd>
           </div>
         </dl>
       </section>
@@ -619,6 +777,7 @@
   <script src="pairs.js" defer></script>
   <script src="ret.js" defer></script>
   <script src="spt.js" defer></script>
+  <script src="soda.js" defer></script>
   <script src="tabs.js" defer></script>
   <script src="selects.js" defer></script>
   <script src="analytics.js" defer></script>
